@@ -105,6 +105,7 @@ angular.module("twitterListViewer")
 
         $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
         $cookieStore.put('globals', $rootScope.globals);
+        console.log('authService, this cookie was just set:', $cookieStore.get('globals'));
     }
 
     function ClearCredentials() {

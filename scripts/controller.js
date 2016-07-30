@@ -36,11 +36,23 @@ angular.module("twitterListViewer")
 
 	
 }])
-.controller('homeController',['$scope', function($scope){
-	$scope.greeting = 'Hola!';
+.controller('homeController',['$scope', '$cookieStore', function($scope, $cookieStore){
+	
+	var cookieCredentials = $cookieStore.get('globals');
+	if(cookieCredentials){
+
+		$scope.greeting = 'Hola! - now authenticate with Twitter to view your lists';	
+	} else {
+
+		$scope.greeting = 'Hola! - login with List Viewer first please';	
+	}
+
+	
+
+
 }])
 // .controller('loginController',['$scope', function($scope, authenticationService){
-.controller('loginController', function($scope, authenticationService) {
+.controller('loginController', function($scope, authenticationService, $location, dataService) {
 
 
 
@@ -55,28 +67,40 @@ angular.module("twitterListViewer")
 	 	
 	 	console.log("about to call the login service,  username = " + username.value + ", password = " + password.value);
 
-	 	// dataService.login(username.value,password.value).then(function(response) {
-	  //       if (response.success) {
-	  //           //debugger;
-	  //           console.log("LoginController.login, response is success");
-	  //           console.log("LoginController.login, response data = " + JSON.stringify(response.data));
+	 	dataService.login(username.value,password.value).then(function(response) {
+	        if (response.success) {
+	            //debugger;
+	            console.log("LoginController.login, response is success");
+	            console.log("LoginController.login, response data = " + JSON.stringify(response.data));
 
-	  //           authenticationService.SetCredentials(username, password);
-	  //           // console.log("LoginController.login - data from response to be stored in auth:");
-	  //           // console.log("email:" + response.data.config.data.email);
-	  //           // console.log("pw:" + response.data.config.data.password);
-	  //           // authenticationService.SetCredentials(response.data.config.data.email, response.data.config.data.password);
-	  //           // vm.dataLoading = false;
+	            authenticationService.SetCredentials(username, password);
+	            // console.log("LoginController.login - data from response to be stored in auth:");
+	            // console.log("email:" + response.data.config.data.email);
+	            // console.log("pw:" + response.data.config.data.password);
+	            // authenticationService.SetCredentials(response.data.config.data.email, response.data.config.data.password);
+	            // vm.dataLoading = false;
 
-	  //           $location.path('/Home');
-	  //       } else {
-	  //           console.log("LoginController.login, response is failure, message from Backendless = " + response.message);
-	  //           flashService.Error(response.message);
-	  //           // vm.password="";
-	  //           // vm.dataLoading = false;
-	  //       }
-	  //   });   
+	            $location.path('/Home');
+	        } else {
+	            console.log("LoginController.login, response is failure, message from Backendless = " + response.message);
+	            // flashService.Error(response.message);
+	            // vm.password="";
+	            // vm.dataLoading = false;
+	        }
+	    });   
 
 	 };
 	
-});
+})
+.controller('registrationController', ['authenticationService', function(authenticationService){
+	initController();
+
+ 	function initController() {
+    	// reset login status
+    	authenticationService.ClearCredentials();
+  	}
+	
+}])
+
+
+;
