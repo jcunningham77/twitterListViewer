@@ -5,6 +5,9 @@ angular.module("twitterListViewer")
   	
 	$scope.userAccessToken;
 	$scope.authenticated=false;
+	$scope.greeting="Please authenticate with Twitter to see you list data";
+
+
 
 	$scope.authenticateWithTwitter = function(){
 		console.log("in the controller");
@@ -20,9 +23,19 @@ angular.module("twitterListViewer")
 			    result.me()
 			    .done(function (response) {
 			    	console.log('response:', response);
-			        console.log('Firstname: ', response.firstname);
-			        console.log('Lastname: ', response.lastname);
-			        $scope.authenticated=true;
+			        console.log('name: ', response.name);
+			        console.log('alias: ', response.alias);
+			        $scope.$apply($scope.authenticated=true);
+			        //need to use $apply to tell angular to do dirty checking
+			        // $scope.greeting=='You';
+			        var successString = 'You have been authenticated with Twitter as ' + response.alias;
+					console.log('successString: ', successString);
+
+			        $scope.$apply($scope.greeting=[successString]);
+
+
+			        localStorage.setItem("twitterAlias",response.alias);
+			        localStorage.setItem("twitterAvatar",response.avatar);
 
 			    })
 			    .fail(function (err) {
@@ -39,6 +52,8 @@ angular.module("twitterListViewer")
 .controller('homeController',['$scope', '$cookieStore', function($scope, $cookieStore){
 	
 	var cookieCredentials = $cookieStore.get('globals');
+	var authEnticatedWithListViewer = false;
+	var authEnticatedWithTwitter = false;
 	if(cookieCredentials){
 
 		$scope.greeting = 'Hola! - now authenticate with Twitter to view your lists';	
@@ -80,7 +95,7 @@ angular.module("twitterListViewer")
 	            // authenticationService.SetCredentials(response.data.config.data.email, response.data.config.data.password);
 	            // vm.dataLoading = false;
 
-	            $location.path('/Home');
+	            $location.path('/Twitter');
 	        } else {
 	            console.log("LoginController.login, response is failure, message from Backendless = " + response.message);
 	            // flashService.Error(response.message);
@@ -92,13 +107,35 @@ angular.module("twitterListViewer")
 	 };
 	
 })
-.controller('registrationController', ['authenticationService', function(authenticationService){
+.controller('registrationController', ['$scope','$location','authenticationService','dataService', function($scope, $location, authenticationService, dataService){
 	initController();
 
  	function initController() {
     	// reset login status
     	authenticationService.ClearCredentials();
   	}
+
+  	$scope.register = function() {
+	 	 // debugger;
+	 	 //note here we are accessing the user object scoped from the login template (ng-model)
+	 	//this is different from the logi controller - that is acessing the field value of the input field
+	 	console.log("about to call the register service,  firstname = " + this.user.firstName + ", lastname = " + this.user.lastName);
+	 	dataService.register(this.user).then(function(response){
+	 		if (response.success){
+	 			// debugger;
+	 			console.log("RegistrationController.login, response data = " + JSON.stringify(response.data));
+	 			authenticationService.SetCredentials(response.data.config.data.email, response.data.config.data.password);
+	 			$location.path('/Twitter');
+	 		} else {
+	 			console.log("RegistrationController.login, response is failure, message from Backendless = " + response.message);
+	 			flashService.Error(response.message);
+	 		}
+	 	});
+
+	 }
+
+
+
 	
 }])
 
