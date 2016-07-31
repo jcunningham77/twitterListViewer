@@ -28,7 +28,13 @@
 		    controller: 'twitterController',
 		    // data: { active:"home"}
 		    // active=home;
-		  })			  
+		  })	
+		  .when('/TwitterLists', {
+		    templateUrl: 'templates/twitterLists.html',
+		    controller: 'twitterListController',
+		    // data: { active:"home"}
+		    // active=home;
+		  })			  		  
 		  .otherwise({ redirectTo: '/Home' });
 		})
 // .run(run);

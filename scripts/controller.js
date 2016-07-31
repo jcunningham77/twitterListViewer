@@ -1,6 +1,6 @@
 'use strict';
 angular.module("twitterListViewer")
-.controller('twitterController', ['$scope', function($scope) {
+.controller('twitterController', ['$scope','$location', function($scope, $location) {
 
   	
 	$scope.userAccessToken;
@@ -25,17 +25,26 @@ angular.module("twitterListViewer")
 			    	console.log('response:', response);
 			        console.log('name: ', response.name);
 			        console.log('alias: ', response.alias);
-			        $scope.$apply($scope.authenticated=true);
+			        var successString;
+			        successString = 'You have been authenticated with Twitter as ' + response.alias;
+					console.log('successString: ', successString);
+					localStorage.setItem("twitterAlias",response.alias);
+			        	localStorage.setItem("twitterAvatar",response.avatar);
+			        $scope.$apply($location.path('/TwitterLists'));
+
+			        
 			        //need to use $apply to tell angular to do dirty checking
 			        // $scope.greeting=='You';
-			        var successString = 'You have been authenticated with Twitter as ' + response.alias;
-					console.log('successString: ', successString);
+			        
 
-			        $scope.$apply($scope.greeting=[successString]);
+					
+			        // $scope.$apply($scope.greeting=[successString]);
+
+			        
+			        // console.log("after location path has been set to Twitter Lists");
 
 
-			        localStorage.setItem("twitterAlias",response.alias);
-			        localStorage.setItem("twitterAvatar",response.avatar);
+			        
 
 			    })
 			    .fail(function (err) {
@@ -49,6 +58,15 @@ angular.module("twitterListViewer")
 
 	
 }])
+.controller('twitterListController', function($scope,$location,dataService){
+	$scope.twitterAlias = localStorage.getItem("twitterAlias");
+	$scope.twitterAvatar = localStorage.getItem("twitterAvatar");
+
+
+
+
+
+})
 .controller('homeController',['$scope', '$cookieStore', function($scope, $cookieStore){
 	
 	var cookieCredentials = $cookieStore.get('globals');
