@@ -19,6 +19,7 @@ angular.module("twitterListViewer")
 		    .done(function(result) {
 		    	console.log('result from popup = ', result);
 		    	$scope.userAccessToken = result.oauth_token;
+		    	localStorage.setItem("twitterUserToken", result.oauth_token);
 		    	console.log("$scope.userAccessToken = ", $scope.userAccessToken);
 			    result.me()
 			    .done(function (response) {
@@ -29,7 +30,7 @@ angular.module("twitterListViewer")
 			        successString = 'You have been authenticated with Twitter as ' + response.alias;
 					console.log('successString: ', successString);
 					localStorage.setItem("twitterAlias",response.alias);
-			        	localStorage.setItem("twitterAvatar",response.avatar);
+			        localStorage.setItem("twitterAvatar",response.avatar);
 			        $scope.$apply($location.path('/TwitterLists'));
 
 			        
@@ -61,6 +62,14 @@ angular.module("twitterListViewer")
 .controller('twitterListController', function($scope,$location,dataService){
 	$scope.twitterAlias = localStorage.getItem("twitterAlias");
 	$scope.twitterAvatar = localStorage.getItem("twitterAvatar");
+	$scope.twitterUserToken = localStorage.getItem("twitterUserToken");
+
+	$scope.listData = dataService.getTwitterListData(localStorage.getItem("twitterAlias"), localStorage.getItem("twitterUserToken"));
+	
+	console.log($scope.listData);
+
+
+
 
 
 
