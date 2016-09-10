@@ -59,21 +59,21 @@ angular.module("twitterListViewer")
 
 	
 }])
-.controller('twitterListController', function($scope,$location,dataService){
+.controller('twitterListController', function($scope,$location,$http,dataService){
 	$scope.twitterAlias = localStorage.getItem("twitterAlias");
 	$scope.twitterAvatar = localStorage.getItem("twitterAvatar");
 	$scope.twitterUserToken = localStorage.getItem("twitterUserToken");
 
-	$scope.listData = dataService.getTwitterListData(localStorage.getItem("twitterAlias"), localStorage.getItem("twitterUserToken"));
+	// $scope.listData = dataService.getTwitterListData(localStorage.getItem("twitterAlias"), localStorage.getItem("twitterUserToken"));
 	
-	console.log($scope.listData);
+	console.log("about to invoke server side API call, with alias = " + localStorage.getItem("twitterAlias") + " and userAuthToken = " + localStorage.getItem("twitterUserToken"));
 
-
-
-
-
-
-
+     $http.get('http://localhost:3000/api/twitterListData/' + localStorage.getItem("twitterAlias"),{headers:{'userAuthToken':localStorage.getItem("twitterUserToken")}},function(err,res){
+		 if (err)throw err;
+		 $scope.listData = res;
+		 console.log($scope.listData);
+	 })
+	
 
 })
 .controller('homeController',['$scope', '$cookieStore', function($scope, $cookieStore){
