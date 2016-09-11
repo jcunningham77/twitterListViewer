@@ -20,17 +20,17 @@ module.exports = function(app){
         var url = 'https://api.twitter.com/1.1/lists/list.json';
         var parameters = {
             oauth_consumer_key : 'KkKRSmSoRbqmanyNVOt9EcZOl',
-            oauth_token : req.headers.userauthtoken,
             oauth_nonce : nonceValue,
-            oauth_timestamp : timestamp,
             oauth_signature_method : 'HMAC-SHA1',
+            oauth_timestamp : timestamp,
+            oauth_token : req.headers.userauthtoken,
             oauth_version : '1.0',
             'screen-name': req.params.alias
         };
         var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
-        var tokenSecret = req.headers.userauthtoken;
+        var tokenSecret = req.headers.userauthtokensecret;
     // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash 
-        var oauthSignatureValue = oauth_signature.generate(httpMethod, url, parameters, consumerSecret, tokenSecret,{ encodeSignature: false});
+        var oauthSignatureValue = oauth_signature.generate(httpMethod, url, parameters, consumerSecret, tokenSecret,{ encodeSignature: true});
 
 
         var request1 = https.request({method:'GET',

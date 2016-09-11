@@ -20,6 +20,7 @@ angular.module("twitterListViewer")
 		    	console.log('result from popup = ', result);
 		    	$scope.userAccessToken = result.oauth_token;
 		    	localStorage.setItem("twitterUserToken", result.oauth_token);
+				localStorage.setItem("twitterUserTokenSecret", result.oauth_token_secret);
 		    	console.log("$scope.userAccessToken = ", $scope.userAccessToken);
 			    result.me()
 			    .done(function (response) {
@@ -68,7 +69,8 @@ angular.module("twitterListViewer")
 	
 	console.log("about to invoke server side API call, with alias = " + localStorage.getItem("twitterAlias") + " and userAuthToken = " + localStorage.getItem("twitterUserToken"));
 
-     $http.get('http://localhost:3000/api/twitterListData/' + localStorage.getItem("twitterAlias"),{headers:{'userAuthToken':localStorage.getItem("twitterUserToken")}},function(err,res){
+     $http.get('http://localhost:3000/api/twitterListData/' + localStorage.getItem("twitterAlias"),{headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
+				'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}},function(err,res){
 		 if (err)throw err;
 		 $scope.listData = res;
 		 console.log($scope.listData);
