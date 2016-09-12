@@ -14,24 +14,7 @@ module.exports = function(app){
 
         var nonceValue = oauth_nonce();
         var timestamp = Math.floor( Date.now() / 1000 );
-
-        //generate the oauth signature
-        var httpMethod = 'GET';
-        var url = 'https://api.twitter.com/1.1/lists/list.json';
-        var parameters = {
-            oauth_consumer_key : 'KkKRSmSoRbqmanyNVOt9EcZOl',
-            oauth_nonce : nonceValue,
-            oauth_signature_method : 'HMAC-SHA1',
-            oauth_timestamp : timestamp,
-            oauth_token : req.headers.userauthtoken,
-            oauth_version : '1.0',
-            'screen-name': req.params.alias
-        };
-        var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
-        var tokenSecret = req.headers.userauthtokensecret;
-    // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash 
-        var oauthSignatureValue = oauth_signature.generate(httpMethod, url, parameters, consumerSecret, tokenSecret,{ encodeSignature: true});
-
+        var oauthSignatureValue = prepareTwitterOauthSignature('GET','https://api.twitter.com/1.1/lists/list.json',timestamp,nonceValue,req.params.alias,req.headers.userauthtoken,req.headers.userauthtokensecret);
 
         var request1 = https.request({method:'GET',
                       headers:{
@@ -59,8 +42,37 @@ module.exports = function(app){
 
                       });
                       request1.end();
-        
     });
+
+    //prepare authorization for twitter API request
+    //@param verb                     HTTP method
+    //@param url                      URL
+    //@param timestamp                Timestamp
+    //@param nonceValue               NonceValue   
+    //@param alias                    Twitter Alias of the user
+    //@param userAuthToken            The Twitter User's authToken, obtained via OAuth Popup
+    //@param userAuthTokenSecret      The Twitter User's authToken secret, obtained via OAuth Popup 
+    function prepareTwitterOauthSignature(verb, url, timestamp, nonceValue, 
+                                          alias, userAuthToken, userAuthTokenSecret){
+
+        console.log('in refactored oAuth signature generator function');
+        var parameters = {
+            oauth_consumer_key : 'KkKRSmSoRbqmanyNVOt9EcZOl',
+            oauth_nonce : nonceValue,
+            oauth_signature_method : 'HMAC-SHA1',
+            oauth_timestamp : timestamp,
+            oauth_token : userAuthToken,
+            oauth_version : '1.0',
+            'screen-name': alias
+        };
+        var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
+        var tokenSecret = userAuthTokenSecret;
+        // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash 
+        var oauthSignatureValue = oauth_signature.generate(verb, url, parameters, consumerSecret, tokenSecret,{ encodeSignature: true});
+                                      
+        return oauthSignatureValue;
+
+    }
 };     
     
     
