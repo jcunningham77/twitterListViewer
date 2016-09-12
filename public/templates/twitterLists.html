@@ -1,13 +1,14 @@
 	<div class="mainContent">
 		
-			<h4>There are your Twitter Lists, {{twitterAlias}}</h4>
+			<h3>Hello, {{twitterAlias}}</h3>
 
-			<h3>Your token is: {{twitterUserToken}}</h3>
+			<h4>Your token is: {{twitterUserToken}}</h4>
 			<img src="{{twitterAvatar}}">
-			<div>
-
-
-
+			<h4>Here are your lists:</h4>
+			
+			<div ng-repeat="list in listData.data">
+				<h5>List "{{list.name}}"
+			
 			</div>
 
 

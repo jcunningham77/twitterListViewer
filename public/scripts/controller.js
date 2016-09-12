@@ -69,12 +69,21 @@ angular.module("twitterListViewer")
 	
 	console.log("about to invoke server side API call, with alias = " + localStorage.getItem("twitterAlias") + " and userAuthToken = " + localStorage.getItem("twitterUserToken"));
 
-     $http.get('http://localhost:3000/api/twitterListData/' + localStorage.getItem("twitterAlias"),{headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
-				'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}},function(err,res){
-		 if (err)throw err;
-		 $scope.listData = res;
-		 console.log($scope.listData);
-	 })
+     $http.get('http://localhost:3000/api/twitter-lists/' + localStorage.getItem("twitterAlias"),
+	 			{
+					headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
+							 'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
+				}).then(function(res){
+					console.log("in success callback after API call");
+					$scope.listData = res;
+					console.log($scope.listData);
+				},function(err){
+					console.log("in error callback after API call");
+					$scope.error_message = err;
+					console.log(err);
+				});
+	
+	console.log("after API call to node twitter list endpoint");
 	
 
 })

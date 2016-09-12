@@ -10,7 +10,7 @@ var oauth_nonce = require('oauth_nonce');
 var oauth_signature = require('oauth-signature');
 
 module.exports = function(app){
-    app.get('/api/twitterListData/:alias',function(req,res){
+    app.get('/api/twitter-lists/:alias',function(req,res){
 
         var nonceValue = oauth_nonce();
         var timestamp = Math.floor( Date.now() / 1000 );
