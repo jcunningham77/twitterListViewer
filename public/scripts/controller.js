@@ -87,11 +87,23 @@ angular.module("twitterListViewer")
 
 	$scope.setDefaultList = function(listId){
 		console.log("call node service to persist " + listId + " as defaul");
+		$http.post('http://localhost:3000/api/defaultList/',
+		{
+			data:{
+				alias:$scope.twitterAlias,
+				listId:listId
+			}
+		}).then(function(res){
+			$scope.defaultListId = listId;
+			console.log('in success callback after persisting default id');
+		},function(err){
+			console.log("in error callback after persist default API call");
+			$scope.error_message = err;
+			console.log(err);
+		});
 
-		$scope.defaultListId = listId;
+			
 	}
-	
-
 })
 .controller('homeController',['$scope', '$cookieStore', function($scope, $cookieStore){
 	

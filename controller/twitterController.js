@@ -8,8 +8,31 @@
 var https = require('https');
 var oauth_nonce = require('oauth_nonce');
 var oauth_signature = require('oauth-signature');
+var DefaultLists = require('../model/defaultListModel');
+var bodyParser = require('body-parser');
+
+
 
 module.exports = function(app){
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended:true}));
+
+
+    app.post('/api/defaultList',function(req,res){
+        console.log('in the post endpoint for setting default list');
+        var defaultList = DefaultLists({
+            alias:req.body.data.alias,
+            listId:req.body.data.listId
+        });
+        defaultList.save(function(err){
+                if(err){
+                    console.log(err);
+                    throw err;
+                }
+                res.send('Success');
+        });   
+    });
+
     app.get('/api/twitter-lists/:alias',function(req,res){
 
         var nonceValue = oauth_nonce();
