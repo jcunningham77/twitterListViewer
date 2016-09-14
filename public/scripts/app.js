@@ -23,8 +23,8 @@
 		    // data: { active:"home"}
 		    // active=home;
 		  })		  
-		  .when('/Twitter', {
-		    templateUrl: 'templates/twitter.html',
+		  .when('/TwitterAuth', {
+		    templateUrl: 'templates/twitterAuth.html',
 		    controller: 'twitterController',
 		    // data: { active:"home"}
 		    // active=home;

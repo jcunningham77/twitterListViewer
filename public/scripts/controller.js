@@ -5,7 +5,7 @@ angular.module("twitterListViewer")
   	
 	$scope.userAccessToken;
 	$scope.authenticated=false;
-	$scope.greeting="Please authenticate with Twitter to see you list data";
+	$scope.greeting="Please authenticate with Twitter to see your list data";
 
 
 
@@ -133,7 +133,7 @@ angular.module("twitterListViewer")
 	            // authenticationService.SetCredentials(response.data.config.data.email, response.data.config.data.password);
 	            // vm.dataLoading = false;
 
-	            $location.path('/Twitter');
+	            $location.path('/TwitterAuth');
 	        } else {
 	            console.log("LoginController.login, response is failure, message from Backendless = " + response.message);
 	            // flashService.Error(response.message);
@@ -163,7 +163,7 @@ angular.module("twitterListViewer")
 	 			// debugger;
 	 			console.log("RegistrationController.login, response data = " + JSON.stringify(response.data));
 	 			authenticationService.SetCredentials(response.data.config.data.email, response.data.config.data.password);
-	 			$location.path('/Twitter');
+	 			$location.path('/TwitterAuth');
 	 		} else {
 	 			console.log("RegistrationController.login, response is failure, message from Backendless = " + response.message);
 	 			flashService.Error(response.message);
