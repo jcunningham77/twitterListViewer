@@ -84,6 +84,12 @@ angular.module("twitterListViewer")
 				});
 	
 	console.log("after API call to node twitter list endpoint");
+
+	$scope.setDefaultList = function(listId){
+		console.log("call node service to persist " + listId + " as defaul");
+
+		$scope.defaultListId = listId;
+	}
 	
 
 })
