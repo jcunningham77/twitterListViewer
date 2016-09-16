@@ -20,17 +20,19 @@ module.exports = function(app){
 
     app.post('/api/defaultList',function(req,res){
         console.log('in the post endpoint for setting default list');
-        var defaultList = DefaultLists({
-            alias:req.body.data.alias,
-            listId:req.body.data.listId
-        });
-        defaultList.save(function(err){
-                if(err){
-                    console.log(err);
-                    throw err;
-                }
-                res.send('Success');
-        });   
+        var defaultList;
+        DefaultLists.findOneAndUpdate({alias:req.body.data.alias},
+                    {alias:req.body.data.alias,listId:req.body.data.listId},
+                    {new:true,upsert:true},
+                    function(err,result){
+                        if(err){
+                            console.log(err);
+                            throw err;
+                        }else{
+                            defaultList = result;
+                        }
+                    });
+        res.send(defaultList); 
     });
 
     app.get('/api/twitter-lists/:alias',function(req,res){

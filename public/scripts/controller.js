@@ -82,6 +82,8 @@ angular.module("twitterListViewer")
 					$scope.error_message = err;
 					console.log(err);
 				});
+
+				
 	
 	console.log("after API call to node twitter list endpoint");
 
