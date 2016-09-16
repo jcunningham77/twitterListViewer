@@ -5,7 +5,7 @@ angular.module("twitterListViewer")
   	
 	$scope.userAccessToken;
 	$scope.authenticated=false;
-	$scope.greeting="Please authenticate with Twitter to see you list data";
+	$scope.greeting="Please authenticate with Twitter to see your list data";
 
 
 
@@ -20,6 +20,7 @@ angular.module("twitterListViewer")
 		    	console.log('result from popup = ', result);
 		    	$scope.userAccessToken = result.oauth_token;
 		    	localStorage.setItem("twitterUserToken", result.oauth_token);
+				localStorage.setItem("twitterUserTokenSecret", result.oauth_token_secret);
 		    	console.log("$scope.userAccessToken = ", $scope.userAccessToken);
 			    result.me()
 			    .done(function (response) {
@@ -59,22 +60,52 @@ angular.module("twitterListViewer")
 
 	
 }])
-.controller('twitterListController', function($scope,$location,dataService){
+.controller('twitterListController', function($scope,$location,$http,dataService){
 	$scope.twitterAlias = localStorage.getItem("twitterAlias");
 	$scope.twitterAvatar = localStorage.getItem("twitterAvatar");
 	$scope.twitterUserToken = localStorage.getItem("twitterUserToken");
 
-	$scope.listData = dataService.getTwitterListData(localStorage.getItem("twitterAlias"), localStorage.getItem("twitterUserToken"));
+	// $scope.listData = dataService.getTwitterListData(localStorage.getItem("twitterAlias"), localStorage.getItem("twitterUserToken"));
 	
-	console.log($scope.listData);
+	console.log("about to invoke server side API call, with alias = " + localStorage.getItem("twitterAlias") + " and userAuthToken = " + localStorage.getItem("twitterUserToken"));
 
+     $http.get('http://localhost:3000/api/twitter-lists/' + localStorage.getItem("twitterAlias"),
+	 			{
+					headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
+							 'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
+				}).then(function(res){
+					console.log("in success callback after API call");
+					$scope.listData = res;
+					console.log($scope.listData);
+				},function(err){
+					console.log("in error callback after API call");
+					$scope.error_message = err;
+					console.log(err);
+				});
 
+				
+	
+	console.log("after API call to node twitter list endpoint");
 
+	$scope.setDefaultList = function(listId){
+		console.log("call node service to persist " + listId + " as defaul");
+		$http.post('http://localhost:3000/api/defaultList/',
+		{
+			data:{
+				alias:$scope.twitterAlias,
+				listId:listId
+			}
+		}).then(function(res){
+			$scope.defaultListId = listId;
+			console.log('in success callback after persisting default id');
+		},function(err){
+			console.log("in error callback after persist default API call");
+			$scope.error_message = err;
+			console.log(err);
+		});
 
-
-
-
-
+			
+	}
 })
 .controller('homeController',['$scope', '$cookieStore', function($scope, $cookieStore){
 	
@@ -122,7 +153,7 @@ angular.module("twitterListViewer")
 	            // authenticationService.SetCredentials(response.data.config.data.email, response.data.config.data.password);
 	            // vm.dataLoading = false;
 
-	            $location.path('/Twitter');
+	            $location.path('/TwitterAuth');
 	        } else {
 	            console.log("LoginController.login, response is failure, message from Backendless = " + response.message);
 	            // flashService.Error(response.message);
@@ -152,7 +183,7 @@ angular.module("twitterListViewer")
 	 			// debugger;
 	 			console.log("RegistrationController.login, response data = " + JSON.stringify(response.data));
 	 			authenticationService.SetCredentials(response.data.config.data.email, response.data.config.data.password);
-	 			$location.path('/Twitter');
+	 			$location.path('/TwitterAuth');
 	 		} else {
 	 			console.log("RegistrationController.login, response is failure, message from Backendless = " + response.message);
 	 			flashService.Error(response.message);

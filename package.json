@@ -1,0 +1,31 @@
+{
+  "name": "twitter-list-viewer",
+  "version": "0.0.1",
+  "description": "A MEAN application to allow Twitter users to quickly access their lists. They will also be able to set default lists.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcunningham77/twitterListViewer.git"
+  },
+  "keywords": [
+    "twitter",
+    "lists"
+  ],
+  "author": "Jeff Cunningham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcunningham77/twitterListViewer/issues"
+  },
+  "homepage": "https://github.com/jcunningham77/twitterListViewer#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.0",
+    "node-twitter-api": "^1.8.0",
+    "oauth-signature": "^1.3.1",
+    "oauth_nonce": "^1.0.0"
+  }
+}
