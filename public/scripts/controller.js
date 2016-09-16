@@ -69,7 +69,7 @@ angular.module("twitterListViewer")
 	
 	console.log("about to invoke server side API call, with alias = " + localStorage.getItem("twitterAlias") + " and userAuthToken = " + localStorage.getItem("twitterUserToken"));
 
-     $http.get('http://localhost:3000/api/twitter-lists/' + localStorage.getItem("twitterAlias"),
+    $http.get('http://localhost:3000/api/twitter-lists/' + localStorage.getItem("twitterAlias"),
 	 			{
 					headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
 							 'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
@@ -82,14 +82,23 @@ angular.module("twitterListViewer")
 					$scope.error_message = err;
 					console.log(err);
 				});
-
-				
+	$http.get('http://localhost:3000/api/default-list/' + localStorage.getItem("twitterAlias"))
+				.then(function(res){
+					console.log("in result callback after API call, default list GET res = " + JSON.stringify(res));
+					if(res){
+						$scope.defaultListId = res.data.listId;
+					}	
+				},function(err){
+					console.log("ir err callback after API call for default list GET");
+					console.log(err);
+					
+				});
 	
-	console.log("after API call to node twitter list endpoint");
+	console.log("after API call to node twitter list endpoint and default-list endpoint");
 
 	$scope.setDefaultList = function(listId){
 		console.log("call node service to persist " + listId + " as defaul");
-		$http.post('http://localhost:3000/api/defaultList/',
+		$http.post('http://localhost:3000/api/default-list/',
 		{
 			data:{
 				alias:$scope.twitterAlias,

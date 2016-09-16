@@ -18,7 +18,7 @@ module.exports = function(app){
     app.use(bodyParser.urlencoded({extended:true}));
 
 
-    app.post('/api/defaultList',function(req,res){
+    app.post('/api/default-list',function(req,res){
         console.log('in the post endpoint for setting default list');
         var defaultList;
         DefaultLists.findOneAndUpdate({alias:req.body.data.alias},
@@ -33,6 +33,28 @@ module.exports = function(app){
                         }
                     });
         res.send(defaultList); 
+    });
+
+    app.get('/api/default-list/:alias',function(req,res){
+        console.log('in the get endpoint for getting default list, alias = ' + req.params.alias);
+        DefaultLists.findOne({alias:req.params.alias},
+                    function(err,result){
+                        if(err){
+                            console.log(err);
+                            // throw err;
+                            res.status('500').send({message:'Internal Server Error'});
+                        }
+                        if (result){
+                            console.log('default list id = ' + result.listId);
+                            res.status('200').send(result);
+                        }else {
+                            console.log('not found');
+                            res.status('404').send();
+                        }
+                        
+                    });
+                    
+                 
     });
 
     app.get('/api/twitter-lists/:alias',function(req,res){
