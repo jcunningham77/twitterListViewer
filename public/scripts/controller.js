@@ -60,7 +60,7 @@ angular.module("twitterListViewer")
 
 	
 }])
-.controller('twitterListController', function($scope,$location,$http,dataService){
+.controller('twitterListsController', function($scope,$location,$http,dataService){
 	$scope.twitterAlias = localStorage.getItem("twitterAlias");
 	$scope.twitterAvatar = localStorage.getItem("twitterAvatar");
 	$scope.twitterUserToken = localStorage.getItem("twitterUserToken");
@@ -116,6 +116,32 @@ angular.module("twitterListViewer")
 			
 	}
 })
+.controller('twitterListController',['$scope','$cookieStore','$http','$location',function($scope,$cookieStore,$http,$location){
+	$scope.twitterAlias = localStorage.getItem("twitterAlias");
+	$scope.twitterAvatar = localStorage.getItem("twitterAvatar");
+	$scope.twitterUserToken = localStorage.getItem("twitterUserToken");
+
+	console.log($location.search().listId);
+	//debugger;
+	var listId =  $location.search().listId;
+
+	
+	// console.log("about to invoke server side API call, with listId = " + localStorage.getItem("twitterAlias") + " and userAuthToken = " + localStorage.getItem("twitterUserToken"));
+
+    $http.get('http://localhost:3000/api/twitter-list/' + listId,
+	 			{
+					headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
+							 'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
+				}).then(function(res){
+					console.log("in success callback after API call");
+					$scope.listData = res;
+					console.log($scope.listData);
+				},function(err){
+					console.log("in error callback after API call");
+					$scope.error_message = err;
+					console.log(err);
+				});	
+}])
 .controller('homeController',['$scope', '$cookieStore', function($scope, $cookieStore){
 	
 	var cookieCredentials = $cookieStore.get('globals');

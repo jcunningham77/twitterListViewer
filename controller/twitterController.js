@@ -61,7 +61,7 @@ module.exports = function(app){
 
         var nonceValue = oauth_nonce();
         var timestamp = Math.floor( Date.now() / 1000 );
-        var oauthSignatureValue = prepareTwitterOauthSignature('GET','https://api.twitter.com/1.1/lists/list.json',timestamp,nonceValue,req.params.alias,req.headers.userauthtoken,req.headers.userauthtokensecret);
+        var oauthSignatureValue = prepareTwitterOauthSignatureForLists('GET','https://api.twitter.com/1.1/lists/list.json',timestamp,nonceValue,req.params.alias,req.headers.userauthtoken,req.headers.userauthtokensecret);
 
         var request1 = https.request({method:'GET',
                       headers:{
@@ -91,7 +91,42 @@ module.exports = function(app){
                       request1.end();
     });
 
-    //prepare authorization for twitter API request
+   app.get('/api/twitter-list/:listId',function(req,res){
+
+        var nonceValue = oauth_nonce();
+        var timestamp = Math.floor( Date.now() / 1000 );
+        var oauthSignatureValue = prepareTwitterOauthSignatureForList('GET','https://api.twitter.com/1.1/lists/statuses.json',timestamp,nonceValue,req.params.listId,req.headers.userauthtoken,req.headers.userauthtokensecret);
+
+        var listRequest = https.request({method:'GET',
+                      headers:{
+                          'Authorization': 'OAuth oauth_consumer_key="KkKRSmSoRbqmanyNVOt9EcZOl", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
+                      },
+                      host:'api.twitter.com',
+                      path:'/1.1/lists/statuses.json?list_id=' + req.params.listId
+                      },function(result){
+                          var parsed;
+                           var body = '';
+                            result.on('data', function(d) {
+                                body += d;
+                            });
+                            result.on('end',function(){
+                                parsed = JSON.parse(body);
+                                console.log(parsed);
+                                res.send(parsed);
+                            });
+                            result.on('error',function(){
+                                if (err){
+                                    console.log(err);
+                                    throw err;
+                                }
+                            });
+
+                      });
+                      listRequest.end();
+    });
+
+    //todo refactor with the below method for list
+    //prepare authorization for twitter API request for lists 
     //@param verb                     HTTP method
     //@param url                      URL
     //@param timestamp                Timestamp
@@ -99,10 +134,21 @@ module.exports = function(app){
     //@param alias                    Twitter Alias of the user
     //@param userAuthToken            The Twitter User's authToken, obtained via OAuth Popup
     //@param userAuthTokenSecret      The Twitter User's authToken secret, obtained via OAuth Popup 
-    function prepareTwitterOauthSignature(verb, url, timestamp, nonceValue, 
+    function prepareTwitterOauthSignatureForLists(verb, url, timestamp, nonceValue, 
                                           alias, userAuthToken, userAuthTokenSecret){
 
         console.log('in refactored oAuth signature generator function');
+        
+        //build request parameter string
+        //refactor the below
+        // var requestParamString = '';
+        // for (var key in requestParameters) {
+        //     if (requestParameters.hasOwnProperty(key)) {
+        //         console.log(key + " -> " + requestParameters[key]);
+        //         requestParamString = requestParamString + '\'' + key + '\':\'' +  requestParameters[key] + '\'';
+        //     }
+        // }
+        // console.log('requestParamString -> ' + requestParamString);
         var parameters = {
             oauth_consumer_key : 'KkKRSmSoRbqmanyNVOt9EcZOl',
             oauth_nonce : nonceValue,
@@ -110,7 +156,49 @@ module.exports = function(app){
             oauth_timestamp : timestamp,
             oauth_token : userAuthToken,
             oauth_version : '1.0',
-            'screen-name': alias
+            'screen-name':alias
+        };
+        var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
+        var tokenSecret = userAuthTokenSecret;
+        // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash 
+        var oauthSignatureValue = oauth_signature.generate(verb, url, parameters, consumerSecret, tokenSecret,{ encodeSignature: true});
+                                      
+        return oauthSignatureValue;
+
+    }
+
+
+    //prepare authorization for twitter API request for list
+    //@param verb                     HTTP method
+    //@param url                      URL
+    //@param timestamp                Timestamp
+    //@param nonceValue               NonceValue   
+    //@param alias                    Twitter Alias of the user
+    //@param userAuthToken            The Twitter User's authToken, obtained via OAuth Popup
+    //@param userAuthTokenSecret      The Twitter User's authToken secret, obtained via OAuth Popup 
+    function prepareTwitterOauthSignatureForList(verb, url, timestamp, nonceValue, 
+                                          listId, userAuthToken, userAuthTokenSecret){
+
+        console.log('in refactored oAuth signature generator function');
+        
+        //build request parameter string
+        //refactor the below
+        // var requestParamString = '';
+        // for (var key in requestParameters) {
+        //     if (requestParameters.hasOwnProperty(key)) {
+        //         console.log(key + " -> " + requestParameters[key]);
+        //         requestParamString = requestParamString + '\'' + key + '\':\'' +  requestParameters[key] + '\'';
+        //     }
+        // }
+        // console.log('requestParamString -> ' + requestParamString);
+        var parameters = {
+            oauth_consumer_key : 'KkKRSmSoRbqmanyNVOt9EcZOl',
+            oauth_nonce : nonceValue,
+            oauth_signature_method : 'HMAC-SHA1',
+            oauth_timestamp : timestamp,
+            oauth_token : userAuthToken,
+            oauth_version : '1.0',
+            'list-id':listId
         };
         var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
         var tokenSecret = userAuthTokenSecret;
