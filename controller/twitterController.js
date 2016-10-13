@@ -137,8 +137,17 @@ module.exports = function(app){
     function prepareTwitterOauthSignatureForLists(verb, url, timestamp, nonceValue, 
                                           alias, userAuthToken, userAuthTokenSecret){
 
-        console.log('in refactored oAuth signature generator function');
-        
+        console.log('******************');                                      
+        console.log('in refactored oAuth signature generator function for lists');
+        console.log('the parameters are:');
+        console.log('verb = ' + verb);
+        console.log('url = ' + url);
+        console.log('timestamp = ' + timestamp);
+        console.log('nonceValue = ' + nonceValue);
+        console.log('alias = ' + alias);
+        console.log('userAuthToken = ' + userAuthToken);
+        console.log('userAuthTokenSecret = ' + userAuthTokenSecret);
+        console.log('******************');
         //build request parameter string
         //refactor the below
         // var requestParamString = '';
@@ -161,6 +170,7 @@ module.exports = function(app){
         var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
         var tokenSecret = userAuthTokenSecret;
         // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash 
+        console.log('lists endpoint: parameters sent to the oath_signature.generator = ' + JSON.stringify(parameters));
         var oauthSignatureValue = oauth_signature.generate(verb, url, parameters, consumerSecret, tokenSecret,{ encodeSignature: true});
                                       
         return oauthSignatureValue;
@@ -179,7 +189,18 @@ module.exports = function(app){
     function prepareTwitterOauthSignatureForList(verb, url, timestamp, nonceValue, 
                                           listId, userAuthToken, userAuthTokenSecret){
 
-        console.log('in refactored oAuth signature generator function');
+        
+        console.log('******************');                                      
+        console.log('in refactored oAuth signature generator function for list');
+        console.log('the parameters are:');
+        console.log('verb = ' + verb);
+        console.log('url = ' + url);
+        console.log('timestamp = ' + timestamp);
+        console.log('nonceValue = ' + nonceValue);
+        console.log('listId = ' + listId);
+        console.log('userAuthToken = ' + userAuthToken);
+        console.log('userAuthTokenSecret = ' + userAuthTokenSecret);
+        console.log('******************');
         
         //build request parameter string
         //refactor the below
@@ -192,17 +213,19 @@ module.exports = function(app){
         // }
         // console.log('requestParamString -> ' + requestParamString);
         var parameters = {
+            'list_id':listId,
             oauth_consumer_key : 'KkKRSmSoRbqmanyNVOt9EcZOl',
             oauth_nonce : nonceValue,
             oauth_signature_method : 'HMAC-SHA1',
             oauth_timestamp : timestamp,
             oauth_token : userAuthToken,
-            oauth_version : '1.0',
-            'list-id':listId
+            oauth_version : '1.0'
+            
         };
         var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
         var tokenSecret = userAuthTokenSecret;
-        // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash 
+        // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash
+        console.log('list endpoint: parameters sent to the oath_signature.generator = ' + JSON.stringify(parameters)); 
         var oauthSignatureValue = oauth_signature.generate(verb, url, parameters, consumerSecret, tokenSecret,{ encodeSignature: true});
                                       
         return oauthSignatureValue;
