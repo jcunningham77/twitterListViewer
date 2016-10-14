@@ -111,8 +111,10 @@ module.exports = function(app){
                             });
                             result.on('end',function(){
                                 parsed = JSON.parse(body);
-                                console.log(parsed);
-                                res.send(parsed);
+                                //console.log(parsed);
+                                var twitterListResponse = mapTwitterApiListToListViewerList(parsed);
+                                console.log(JSON.stringify(twitterListResponse));
+                                res.send(twitterListResponse);
                             });
                             result.on('error',function(){
                                 if (err){
@@ -124,6 +126,28 @@ module.exports = function(app){
                       });
                       listRequest.end();
     });
+
+    function mapTwitterApiListToListViewerList(twitterListResponse){
+        //twitterListResponse
+
+        var tweets = [];
+        for (var key in twitterListResponse) {
+            
+            if (twitterListResponse.hasOwnProperty(key)) {
+                console.log(key + " -> " + twitterListResponse[key]);
+
+                //first get top level values like text
+                
+                var tweet = {"text":twitterListResponse[key].text};
+                 //now get user-level info
+                 tweet.name=twitterListResponse[key]["user"].name;
+                 tweet.screen_name=twitterListResponse[key]["user"].screen_name;
+                 tweet.profile_image_url=twitterListResponse[key]["user"].profile_image_url;
+                 tweets.push(tweet);           
+            }
+        }
+        return tweets;
+    }
 
     //todo refactor with the below method for list
     //prepare authorization for twitter API request for lists 
