@@ -10,6 +10,7 @@ var oauth_nonce = require('oauth_nonce');
 var oauth_signature = require('oauth-signature');
 var DefaultLists = require('../model/defaultListModel');
 var bodyParser = require('body-parser');
+var linkifyHtml = require('linkifyjs/html');
 
 
 
@@ -97,6 +98,8 @@ module.exports = function(app){
         var timestamp = Math.floor( Date.now() / 1000 );
         var oauthSignatureValue = prepareTwitterOauthSignatureForList('GET','https://api.twitter.com/1.1/lists/statuses.json',timestamp,nonceValue,req.params.listId,req.headers.userauthtoken,req.headers.userauthtokensecret);
 
+
+        console.log(req.params.listId);
         var listRequest = https.request({method:'GET',
                       headers:{
                           'Authorization': 'OAuth oauth_consumer_key="KkKRSmSoRbqmanyNVOt9EcZOl", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
@@ -110,10 +113,11 @@ module.exports = function(app){
                                 body += d;
                             });
                             result.on('end',function(){
+                                console.log("twitter-list - this is the response from the twitter list api: " + body);
                                 parsed = JSON.parse(body);
-                                //console.log(parsed);
+                                console.log(parsed);
                                 var twitterListResponse = mapTwitterApiListToListViewerList(parsed);
-                                console.log(JSON.stringify(twitterListResponse));
+                                // console.log(JSON.stringify(twitterListResponse));
                                 res.send(twitterListResponse);
                             });
                             result.on('error',function(){
@@ -134,16 +138,26 @@ module.exports = function(app){
         for (var key in twitterListResponse) {
             
             if (twitterListResponse.hasOwnProperty(key)) {
-                console.log(key + " -> " + twitterListResponse[key]);
+                // console.log(key + " -> " + twitterListResponse[key]);
 
                 //first get top level values like text
-                
-                var tweet = {"text":twitterListResponse[key].text};
-                 //now get user-level info
-                 tweet.name=twitterListResponse[key]["user"].name;
-                 tweet.screen_name=twitterListResponse[key]["user"].screen_name;
-                 tweet.profile_image_url=twitterListResponse[key]["user"].profile_image_url;
-                 tweets.push(tweet);           
+                try {
+                    console.log("***************");
+                    console.log("twitter status text before linkify: " + twitterListResponse[key].text);
+                    console.log("twitter status text after linkify: " + linkifyHtml(twitterListResponse[key].text));
+                    console.log("***************");
+
+                    var tweet = {"text":linkifyHtml(twitterListResponse[key].text, {defaultProtocol: 'https'})};
+                    // var tweet = {"text":"\"Yes to Humphries but I prefer Brate of pass catchers. But of WR, yes, increase for Adam. He'd be my pick of the WR. \"<a href=\"https://t.co/k85QEO1gL0\" target=\"_blank\">https://t.co/k85QEO1gL0</a>"}
+                    // var tweet = {"text":twitterListResponse[key].text};
+                    //now get user-level info
+                    tweet.name=twitterListResponse[key]["user"].name;
+                    tweet.screen_name=twitterListResponse[key]["user"].screen_name;
+                    tweet.profile_image_url=twitterListResponse[key]["user"].profile_image_url;
+                    tweets.push(tweet);
+                } catch(e) {
+                    console.log("error mapping tweet to model" + e);
+                }           
             }
         }
         return tweets;

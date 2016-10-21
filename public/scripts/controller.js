@@ -121,6 +121,7 @@ angular.module("twitterListViewer")
 	$scope.twitterAvatar = localStorage.getItem("twitterAvatar");
 	$scope.twitterUserToken = localStorage.getItem("twitterUserToken");
 
+	console.log("inside twitterListController");
 	console.log($location.search().listId);
 	//debugger;
 	var listId =  $location.search().listId;

@@ -24,3 +24,6 @@ $(function(){
 
 
 });
+$('p').linkify({
+    target: "_blank"
+});

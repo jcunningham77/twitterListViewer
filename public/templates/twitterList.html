@@ -1,24 +1,13 @@
 	<div class="mainContent">
-		
-			
-			
 			<div class="row">
-				<div class="table-responsive col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-					<h3>Hello, {{twitterAlias}}</h3>
-
-					<!--<h4>Your token is: {{twitterUserToken}}</h4>-->
-					<img class="img-rounded" src="{{twitterAvatar}}">
-
+				<div class="table-responsive col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
 					
-                    {{listData}}
-                    
-                    
-                    <!--<h4>Here are your lists, select one to view, or designate a default list that is loaded at startup:</h4>
-					<table class="table table-striped table-bordered">
-							<tr><thead><td><h4>List Name</h4></td><td><h4>Make Default List</h4></td></thead></tr>
-							<tr ng-repeat="list in listData.data"><td><h5><a href="twitterList.html?listId={{list.id}}">{{list.name}}</a></h5></td><td><input type="checkbox" ng-checked="list.id===defaultListId" ng-click="setDefaultList(list.id)"></td></tr>
-						
-					</table>-->
+					<p><h3>Hello, {{twitterAlias}}</h3><img class="img-rounded" src="{{twitterAvatar}}"></p>
+					
+					<table class="table table-striped table-bordered">				
+						<tr ng-repeat="tweet in listData.data"><td><img src={{tweet.profile_image_url}}></td><td><p><h3 class="tweet">{{tweet.name}}</h3></p><p class="tweet" ng-bind-html="tweet.text"></p></td></tr>
+					</table>
+				
 				</div>
 			</div>
 				
