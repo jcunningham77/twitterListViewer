@@ -78,7 +78,7 @@ module.exports = function(app){
                             });
                             result.on('end',function(){
                                 parsed = JSON.parse(body);
-                                // console.log(parsed);
+                                console.log(parsed);
                                 res.send(parsed);
                             });
                             result.on('error',function(){
@@ -99,7 +99,7 @@ module.exports = function(app){
         var oauthSignatureValue = prepareTwitterOauthSignatureForList('GET','https://api.twitter.com/1.1/lists/statuses.json',timestamp,nonceValue,req.params.listId,req.headers.userauthtoken,req.headers.userauthtokensecret);
 
 
-        console.log(req.params.listId);
+        console.log("inside node controller for get Twitter List, input req params = " + req);
         var listRequest = https.request({method:'GET',
                       headers:{
                           'Authorization': 'OAuth oauth_consumer_key="KkKRSmSoRbqmanyNVOt9EcZOl", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
@@ -113,7 +113,46 @@ module.exports = function(app){
                                 body += d;
                             });
                             result.on('end',function(){
-                                console.log("twitter-list - this is the response from the twitter list api: " + body);
+                                // console.log("twitter-list - this is the response from the twitter list api: " + body);
+                                parsed = JSON.parse(body);
+                                console.log(parsed);
+                                var twitterListResponse = mapTwitterApiListToListViewerList(parsed);
+                                // console.log(JSON.stringify(twitterListResponse));
+                                res.send(twitterListResponse);
+                            });
+                            result.on('error',function(){
+                                if (err){
+                                    console.log(err);
+                                    throw err;
+                                }
+                            });
+
+                      });
+                      listRequest.end();
+    });
+
+    app.get('/api/twitter-list-by-slug/:owner_screen_name/slug/:slug',function(req,res){
+
+        var nonceValue = oauth_nonce();
+        var timestamp = Math.floor( Date.now() / 1000 );
+        var oauthSignatureValue = prepareTwitterOauthSignatureForListBySlug('GET','https://api.twitter.com/1.1/lists/statuses.json',timestamp,nonceValue,req.params.owner_screen_name,req.params.slug,req.headers.userauthtoken,req.headers.userauthtokensecret);
+
+
+        console.log("inside node controller for get Twitter List, input req params = " + req);
+        var listRequest = https.request({method:'GET',
+                      headers:{
+                          'Authorization': 'OAuth oauth_consumer_key="KkKRSmSoRbqmanyNVOt9EcZOl", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
+                      },
+                      host:'api.twitter.com',
+                      path:'/1.1/lists/statuses.json?owner_screen_name=' + req.params.owner_screen_name + '&slug=' + req.params.slug
+                      },function(result){
+                          var parsed;
+                           var body = '';
+                            result.on('data', function(d) {
+                                body += d;
+                            });
+                            result.on('end',function(){
+                                // console.log("twitter-list - this is the response from the twitter list api: " + body);
                                 parsed = JSON.parse(body);
                                 console.log(parsed);
                                 var twitterListResponse = mapTwitterApiListToListViewerList(parsed);
@@ -142,10 +181,10 @@ module.exports = function(app){
 
                 //first get top level values like text
                 try {
-                    console.log("***************");
-                    console.log("twitter status text before linkify: " + twitterListResponse[key].text);
-                    console.log("twitter status text after linkify: " + linkifyHtml(twitterListResponse[key].text));
-                    console.log("***************");
+                    // console.log("***************");
+                    // console.log("twitter status text before linkify: " + twitterListResponse[key].text);
+                    // console.log("twitter status text after linkify: " + linkifyHtml(twitterListResponse[key].text));
+                    // console.log("***************");
 
                     var tweet = {"text":linkifyHtml(twitterListResponse[key].text, {defaultProtocol: 'https'})};
                     // var tweet = {"text":"\"Yes to Humphries but I prefer Brate of pass catchers. But of WR, yes, increase for Adam. He'd be my pick of the WR. \"<a href=\"https://t.co/k85QEO1gL0\" target=\"_blank\">https://t.co/k85QEO1gL0</a>"}
@@ -221,7 +260,7 @@ module.exports = function(app){
     //@param url                      URL
     //@param timestamp                Timestamp
     //@param nonceValue               NonceValue   
-    //@param alias                    Twitter Alias of the user
+    //@param listId                     List id of the requested list
     //@param userAuthToken            The Twitter User's authToken, obtained via OAuth Popup
     //@param userAuthTokenSecret      The Twitter User's authToken secret, obtained via OAuth Popup 
     function prepareTwitterOauthSignatureForList(verb, url, timestamp, nonceValue, 
@@ -269,25 +308,59 @@ module.exports = function(app){
         return oauthSignatureValue;
 
     }
+
+       //prepare authorization for twitter API request for list
+    //@param verb                     HTTP method
+    //@param url                      URL
+    //@param timestamp                Timestamp
+    //@param nonceValue               NonceValue   
+    //@param alias                    Twitter Alias of the user
+    //@param userAuthToken            The Twitter User's authToken, obtained via OAuth Popup
+    //@param userAuthTokenSecret      The Twitter User's authToken secret, obtained via OAuth Popup 
+    function prepareTwitterOauthSignatureForListBySlug(verb, url, timestamp, nonceValue, 
+                                          ownerScreenName, slug, userAuthToken, userAuthTokenSecret){
+
+        
+        console.log('******************');                                      
+        console.log('in refactored oAuth signature generator function for list by slug');
+        console.log('the parameters are:');
+        console.log('verb = ' + verb);
+        console.log('url = ' + url);
+        console.log('timestamp = ' + timestamp);
+        console.log('nonceValue = ' + nonceValue);
+        console.log('ownerScreenName = ' + ownerScreenName);
+        console.log('slug = ' + slug);
+        console.log('userAuthToken = ' + userAuthToken);
+        console.log('userAuthTokenSecret = ' + userAuthTokenSecret);
+        console.log('******************');
+        
+        //build request parameter string
+        //refactor the below
+        // var requestParamString = '';
+        // for (var key in requestParameters) {
+        //     if (requestParameters.hasOwnProperty(key)) {
+        //         console.log(key + " -> " + requestParameters[key]);
+        //         requestParamString = requestParamString + '\'' + key + '\':\'' +  requestParameters[key] + '\'';
+        //     }
+        // }
+        // console.log('requestParamString -> ' + requestParamString);
+        var parameters = {
+            oauth_consumer_key : 'KkKRSmSoRbqmanyNVOt9EcZOl',
+            oauth_nonce : nonceValue,
+            oauth_signature_method : 'HMAC-SHA1',
+            oauth_timestamp : timestamp,
+            oauth_token : userAuthToken,
+            oauth_version : '1.0',
+            owner_screen_name : ownerScreenName,
+            slug : slug
+        };
+        var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
+        var tokenSecret = userAuthTokenSecret;
+        // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash
+        console.log('list by slug endpoint: parameters sent to the oath_signature.generator = ' + JSON.stringify(parameters)); 
+        var oauthSignatureValue = oauth_signature.generate(verb, url, parameters, consumerSecret, tokenSecret,{ encodeSignature: true});
+                                      
+        return oauthSignatureValue;
+
+    }
 };     
-    
-    
-    
-    
-    
-    
-    // this.getTwitterListData = function(alias, userAuthToken){
-
-    //         var timestamp = Math.floor( Date.now() / 1000 );
-    //         console.log('current timestamp:' + timestamp);        
-    //         var config = {
-    //             headers : {
-    //                 'Authorization': 'OAuth oauth_consumer_key="KkKRSmSoRbqmanyNVOt9EcZOl", oauth_nonce="96f12991a19b9e7146cb5418c76996fb", oauth_signature="6fJl4Avk%2FXEl4s82JGlYmvtA8x0%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp=' + timestamp +', oauth_token=' + userAuthToken + ', oauth_version="1.0"'                    
-    //             }
-    //         }
-
-    //         console.log("about to invoke twitter API call, with alias = " + alias + " and userAuthToken = " + userAuthToken);
-
-    //         return $http.get('https://api.twitter.com/1.1/lists/list.json?screen-name=' + alias,config).then(handleSuccess,handleError);
-
-    // }

@@ -126,13 +126,34 @@ angular.module("twitterListViewer")
 	//debugger;
 	var listId =  $location.search().listId;
 
-	
-	// console.log("about to invoke server side API call, with listId = " + localStorage.getItem("twitterAlias") + " and userAuthToken = " + localStorage.getItem("twitterUserToken"));
+	if(listId){
 
-    $http.get('http://localhost:3000/api/twitter-list/' + listId,
-	 			{
+		// console.log("about to invoke server side API call, with listId = " + localStorage.getItem("twitterAlias") + " and userAuthToken = " + localStorage.getItem("twitterUserToken"));
+
+		$http.get('http://localhost:3000/api/twitter-list/' + listId,
+					{
+						headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
+								'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
+					}).then(function(res){
+						console.log("in success callback after API call");
+						$scope.listData = res;
+						console.log($scope.listData);
+					},function(err){
+						console.log("in error callback after API call");
+						$scope.error_message = err;
+						console.log(err);
+					});	
+
+	} else {
+		//listId is not in the URL, so try with ownerScreenName and slug
+
+		var ownerScreenName =  $location.search().ownerScreenName;
+		var slug =  $location.search().slug;
+
+		$http.get('http://localhost:3000/api/twitter-list-by-slug/' + ownerScreenName + '/slug/' + slug,
+				{
 					headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
-							 'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
+							'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
 				}).then(function(res){
 					console.log("in success callback after API call");
 					$scope.listData = res;
@@ -142,6 +163,7 @@ angular.module("twitterListViewer")
 					$scope.error_message = err;
 					console.log(err);
 				});	
+	}
 }])
 .controller('homeController',['$scope', '$cookieStore', function($scope, $cookieStore){
 	

@@ -12,8 +12,13 @@
 					<h4>Here are your lists, select one to view, or designate a default list that is loaded at startup:</h4>
 					<table class="table table-striped table-bordered">
 							<tr><thead><td><h4>List Name</h4></td><td><h4>Make Default List</h4></td></thead></tr>
-							<tr ng-repeat="list in listData.data"><td><a href="#TwitterList?listId={{list.id}}">{{list.name}}</a></td><td><input type="checkbox" ng-checked="list.id===defaultListId" ng-click="setDefaultList(list.id)"></td></tr>
+							
+							<!--This is the call to get List data by ListId:-->
+							<!--<tr ng-repeat="list in listData.data"><td><a href="#TwitterList?listId={{list.id}}">{{list.name}}</a></td><td><input type="checkbox" ng-checked="list.id===defaultListId" ng-click="setDefaultList(list.id)"></td></tr>-->
+							<!--this is the call to get list data by owner_screen_name and slug-->
+							<tr ng-repeat="list in listData.data"><td><a href="#TwitterList?ownerScreenName={{list.user.screen_name}}&slug={{list.slug}}">{{list.name}}</a></td><td><input type="checkbox" ng-checked="list.id===defaultListId" ng-click="setDefaultList(list.id)"></td></tr>
 						
+
 					</table>
 				</div>
 			</div>
