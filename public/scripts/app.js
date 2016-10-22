@@ -46,7 +46,7 @@
 .run(run);
 
 	run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', 'authenticationService'];
-	function run($rootScope, $location, $cookieStore, $http) {
+	function run($rootScope, $location, $cookieStore, $http, authenticationService) {
         // keep user logged in after page refresh
         // debugger;
         $rootScope.globals = $cookieStore.get('globals') || {};
@@ -68,7 +68,8 @@
 
 					$rootScope.logout = function(authenticationService) {
 									localStorage.clear();
-									authenticationService.ClearCredentials();
+									//todo - authenticationService is not defined, fix this injection issue
+									// authenticationService.ClearCredentials();
 									console.log('in logout function');
 									$location.path('/Login');
 
