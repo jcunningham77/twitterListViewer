@@ -60,7 +60,7 @@ angular.module("twitterListViewer")
 
 	
 }])
-.controller('twitterListsController', function($scope,$location,$http,dataService){
+.controller('twitterListsController', function($scope,$location,$http,dataService, authenticationService){
 	$scope.twitterAlias = localStorage.getItem("twitterAlias");
 	$scope.twitterAvatar = localStorage.getItem("twitterAvatar");
 	$scope.twitterUserToken = localStorage.getItem("twitterUserToken");
@@ -95,6 +95,15 @@ angular.module("twitterListViewer")
 				});
 	
 	console.log("after API call to node twitter list endpoint and default-list endpoint");
+
+	//todo - refactor this into a directive or its own module that can get injected into these controllers
+	// $rootscope.logout = function() {
+	// 	    localStorage.clear();
+    //         authenticationService.ClearCredentials();
+    //         console.log('in logout function');
+    //         $location.path('/Login');
+
+	// }
 
 	$scope.setDefaultList = function(listId){
 		console.log("call node service to persist " + listId + " as defaul");

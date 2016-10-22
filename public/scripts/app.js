@@ -45,7 +45,7 @@
 		})
 .run(run);
 
-	run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
+	run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', 'authenticationService'];
 	function run($rootScope, $location, $cookieStore, $http) {
         // keep user logged in after page refresh
         // debugger;
@@ -64,9 +64,15 @@
             if (restrictedPage && !loggedIn) {
                 $location.path('/Login');
 						}
-            // } else {
-						// 	$location.path('/TwitterLists')
-						// }
         });
+
+					$rootScope.logout = function(authenticationService) {
+									localStorage.clear();
+									authenticationService.ClearCredentials();
+									console.log('in logout function');
+									$location.path('/Login');
+
+					}
     }
+		
 })();

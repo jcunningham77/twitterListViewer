@@ -19,6 +19,8 @@
 		<script type="text/javascript" src="scripts/authService.js"></script>
 		<script type="text/javascript" src="scripts/dataService.js"></script>
 		<script type="text/javascript" src="scripts/controller.js"></script>
+		<!--todo - refactor the logout functionality from all the controllers into a provider-->
+		<!--<script type="text/javascript" src="scripts/provider.js"></script>-->
 
 
 </head>
@@ -43,6 +45,7 @@
 	      <ul class="nav navbar-nav navbar-right">
 	        <li><a href="#Home">Home</a></li>
 	        <li><a href="#Login">Login</a></li>
+					<li><a ng-click="logout()" href="#Login">Logout</a></li>
 	        <li><a href="#Register">Register</a></li>
 	        
 	      </ul>
