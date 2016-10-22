@@ -165,17 +165,27 @@ angular.module("twitterListViewer")
 				});	
 	}
 }])
-.controller('homeController',['$scope', '$cookieStore', function($scope, $cookieStore){
+.controller('homeController',['$scope', '$cookieStore', '$location', function($scope, $cookieStore, $location){
 	
 	var cookieCredentials = $cookieStore.get('globals');
-	var authEnticatedWithListViewer = false;
-	var authEnticatedWithTwitter = false;
+	// debugger;
+	var authenticatedWithListViewer = false;
+	var authenticatedWithTwitter = false;
+
+	if (localStorage.twitterAlias&&
+		localStorage.twitterAvatar&&
+		localStorage.twitterUserToken&&
+		localStorage.twitterUserTokenSecret){
+			authenticatedWithTwitter = true;
+		}
+
+
 	if(cookieCredentials){
+		authenticatedWithListViewer = true;
+	}
 
-		$scope.greeting = 'Hola! - now authenticate with Twitter to view your lists';	
-	} else {
-
-		$scope.greeting = 'Hola! - login with List Viewer first please';	
+	if (authenticatedWithTwitter&&authenticatedWithListViewer){
+		$scope.$apply($location.path('/TwitterLists'));
 	}
 
 	
