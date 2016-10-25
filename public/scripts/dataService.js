@@ -5,30 +5,9 @@ angular.module("twitterListViewer")
 	var TAG = "dataService";
 
 	this.login = function(username,password){
-		  var config = {
-                headers : {
-                    'authorization': undefined,
-                    'application-id': 'E3F4DC04-11AD-2ED4-FFD2-B5BB04809300',
-                    'secret-key':'35174A73-85C1-1B39-FF93-4D01137BB900',
-                    'application-type':'REST',
-                    'Content-Type':'application/json'
-                }
-            }
-            // $http.post('https://api.backendless.com/v1/users/login', { login: username, password: password },config)
-            //    .success(function (response) {
-            //     console.log("success login = " + response.data.message);
-            //        callback(response);
-            //    });
-            // debugger;
-            // console.log("about to invoke Backendless login API call, username = " + username + " and password = " + password);
-            
-
-            // return $http.post('https://api.backendless.com/v1/users/login', { login: username, password: password },config).then(handleSuccess, handleError);
-            // debugger;
-
+ 
             return $http.post('http://localhost:3000/api/login/',{ "username": username, "password": password }).then(handleSuccess, handleError);
-            // return $http.post('https://api.backendless.com/v1/users/login', { login: username, password: password },config).then(handleSuccess, handleError);
-
+ 
 	}
 
     this.register = function(user){
