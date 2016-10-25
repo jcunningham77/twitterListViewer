@@ -4,11 +4,13 @@
  var app =express();
  var port = process.env.PORT || 3000;
  var twitterController = require('./controller/twitterController');
+ var authController = require('./controller/authController');
 
 
 
  app.use('/assets/',express.static(__dirname+'/public'));
  mongoose.connect(config.getDBConnectionString());
  twitterController(app);
+ authController(app);
 
  app.listen(port);

@@ -19,12 +19,15 @@ angular.module("twitterListViewer")
             //     console.log("success login = " + response.data.message);
             //        callback(response);
             //    });
-            console.log("about to invoke Backendless login API call, username = " + username + " and password = " + password);
+            // debugger;
+            // console.log("about to invoke Backendless login API call, username = " + username + " and password = " + password);
             
 
             // return $http.post('https://api.backendless.com/v1/users/login', { login: username, password: password },config).then(handleSuccess, handleError);
             // debugger;
-            return $http.post('https://api.backendless.com/v1/users/login', { login: username, password: password },config).then(handleSuccess, handleError);
+
+            return $http.post('http://localhost:3000/api/login/',{ "username": username, "password": password }).then(handleSuccess, handleError);
+            // return $http.post('https://api.backendless.com/v1/users/login', { login: username, password: password },config).then(handleSuccess, handleError);
 
 	}
 

@@ -33,21 +33,6 @@ angular.module("twitterListViewer")
 					localStorage.setItem("twitterAlias",response.alias);
 			        localStorage.setItem("twitterAvatar",response.avatar);
 			        $scope.$apply($location.path('/TwitterLists'));
-
-			        
-			        //need to use $apply to tell angular to do dirty checking
-			        // $scope.greeting=='You';
-			        
-
-					
-			        // $scope.$apply($scope.greeting=[successString]);
-
-			        
-			        // console.log("after location path has been set to Twitter Lists");
-
-
-			        
-
 			    })
 			    .fail(function (err) {
 			        console.log("/me function call error:",err);
