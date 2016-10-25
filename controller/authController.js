@@ -8,21 +8,9 @@ module.exports = function(app){
     app.use(bodyParser.urlencoded({extended:true}));
 
     app.post('/api/login',function(req,res){
-        // console.log('in the post endpoint for logging into backendless');
-        
-
-            // $http.post('https://api.backendless.com/v1/users/login', { login: username, password: password },config)
-            //    .success(function (response) {
-            //     console.log("success login = " + response.data.message);
-            //        callback(response);
-            //    });
-            // debugger;
+   
             console.log("about to invoke Backendless login API call, username = " + req.body.username + " and password = " + req.body.password);
             
-
-            // return $http.post('https://api.backendless.com/v1/users/login', { login: username, password: password },config).then(handleSuccess, handleError);
-            // debugger;
-            // return $https.post('https://api.backendless.com/v1/users/login', { login: username, password: password },config).then(handleSuccess, handleError);
 
             var data = {
                 "login" : req.body.username,
@@ -37,7 +25,7 @@ module.exports = function(app){
                         'Content-Type':'application/json'
                       },
                       host:'api.backendless.com',
-                      path:'v1/users/login'
+                      path:'/v1/users/login'
                       },function(result){
                           
                           var parsed;
