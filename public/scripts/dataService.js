@@ -11,19 +11,11 @@ angular.module("twitterListViewer")
 	}
 
     this.register = function(user){
-            var config = {
-                headers : {
-                    'authorization': undefined,
-                    'application-id': 'E3F4DC04-11AD-2ED4-FFD2-B5BB04809300',
-                    'secret-key':'35174A73-85C1-1B39-FF93-4D01137BB900',
-                    'application-type':'REST',
-                    'Content-Type':'application/json'
-                }
-            }
+
 
              console.log("about to invoke Backendless register API call, first = " + user.firstName + " and last = " + user.lastName);
 
-             return $http.post('https://api.backendless.com/v1/users/register', user,config).then(handleSuccess, handleError);
+             return $http.post('http://localhost:3000/api/register/',user).then(handleSuccess, handleError);
            
 
     }
