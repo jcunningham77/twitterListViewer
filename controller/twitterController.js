@@ -1,10 +1,3 @@
-// var twitterAPI = require('node-twitter-api');
-// var twitter = new twitterAPI({
-//     consumerKey: 'KkKRSmSoRbqmanyNVOt9EcZOl',
-//     consumerSecret: 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp',
-//     callback: 'https://oauth.io/auth'
-// });
-
 var https = require('https');
 var oauth_nonce = require('oauth_nonce');
 var oauth_signature = require('oauth-signature');
