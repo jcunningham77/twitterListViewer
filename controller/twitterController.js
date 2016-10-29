@@ -109,7 +109,7 @@ module.exports = function(app){
         console.log("inside node controller for get Twitter List, input req params = " + req);
         var listRequest = https.request({method:'GET',
                       headers:{
-                          'Authorization': 'OAuth oauth_consumer_key="KkKRSmSoRbqmanyNVOt9EcZOl", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
+                          'Authorization': 'OAuth oauth_consumer_key="'+twitterConfig.oauth_consumer_key+'", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
                       },
                       host:'api.twitter.com',
                       path:'/1.1/lists/statuses.json?list_id=' + req.params.listId
@@ -146,7 +146,7 @@ module.exports = function(app){
         console.log("inside node controller for get Twitter List by slug, input req params = " + req);
         var listRequest = https.request({method:'GET',
                       headers:{
-                          'Authorization': 'OAuth oauth_consumer_key="KkKRSmSoRbqmanyNVOt9EcZOl", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
+                          'Authorization': 'OAuth oauth_consumer_key="'+twitterConfig.oauth_consumer_key+'", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
                       },
                       host:'api.twitter.com',
                       path:'/1.1/lists/statuses.json?owner_screen_name=' + req.params.owner_screen_name + '&slug=' + req.params.slug
