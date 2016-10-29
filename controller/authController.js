@@ -1,5 +1,6 @@
 var https = require('https');
 var bodyParser = require('body-parser');
+var config = require('../config');
 
 
 
@@ -7,12 +8,7 @@ module.exports = function(app){
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:true}));
 
-    var backendlessHeaders = {
-                        'application-id': 'E3F4DC04-11AD-2ED4-FFD2-B5BB04809300',
-                        'secret-key':'35174A73-85C1-1B39-FF93-4D01137BB900',
-                        'application-type':'REST',
-                        'Content-Type':'application/json'
-                      };
+    var backendlessHeaders = config.getBackendlessConfigValues();
 
     app.post('/api/login',function(req,res){
    
