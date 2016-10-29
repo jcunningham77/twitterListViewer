@@ -11,10 +11,13 @@ var oauth_signature = require('oauth-signature');
 var DefaultLists = require('../model/defaultListModel');
 var bodyParser = require('body-parser');
 var linkifyHtml = require('linkifyjs/html');
+var config = require('../config');
 
 
 
 module.exports = function(app){
+    var twitterConfig = config.getTwitterConfigValues();
+
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:true}));
 
@@ -65,7 +68,7 @@ module.exports = function(app){
 
         var request1 = https.request({method:'GET',
                       headers:{
-                          'Authorization': 'OAuth oauth_consumer_key="KkKRSmSoRbqmanyNVOt9EcZOl", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
+                          'Authorization': 'OAuth oauth_consumer_key="'+twitterConfig.oauth_consumer_key+'", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
                       },
                       host:'api.twitter.com',
                       path:'/1.1/lists/list.json?screen-name=' + req.params.alias
@@ -215,30 +218,8 @@ module.exports = function(app){
     //@param userAuthTokenSecret      The Twitter User's authToken secret, obtained via OAuth Popup 
     function prepareTwitterOauthSignatureForLists(verb, url, timestamp, nonceValue, 
                                           alias, userAuthToken, userAuthTokenSecret){
-
-        console.log('******************');                                      
-        console.log('in refactored oAuth signature generator function for lists');
-        console.log('the parameters are:');
-        console.log('verb = ' + verb);
-        console.log('url = ' + url);
-        console.log('timestamp = ' + timestamp);
-        console.log('nonceValue = ' + nonceValue);
-        console.log('alias = ' + alias);
-        console.log('userAuthToken = ' + userAuthToken);
-        console.log('userAuthTokenSecret = ' + userAuthTokenSecret);
-        console.log('******************');
-        //build request parameter string
-        //refactor the below
-        // var requestParamString = '';
-        // for (var key in requestParameters) {
-        //     if (requestParameters.hasOwnProperty(key)) {
-        //         console.log(key + " -> " + requestParameters[key]);
-        //         requestParamString = requestParamString + '\'' + key + '\':\'' +  requestParameters[key] + '\'';
-        //     }
-        // }
-        // console.log('requestParamString -> ' + requestParamString);
         var parameters = {
-            oauth_consumer_key : 'KkKRSmSoRbqmanyNVOt9EcZOl',
+            oauth_consumer_key : twitterConfig.oauth_consumer_key,
             oauth_nonce : nonceValue,
             oauth_signature_method : 'HMAC-SHA1',
             oauth_timestamp : timestamp,
@@ -246,7 +227,7 @@ module.exports = function(app){
             oauth_version : '1.0',
             'screen-name':alias
         };
-        var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
+        var consumerSecret = twitterConfig.oauth_consumer_secret;
         var tokenSecret = userAuthTokenSecret;
         // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash 
         console.log('lists endpoint: parameters sent to the oath_signature.generator = ' + JSON.stringify(parameters));
@@ -269,31 +250,9 @@ module.exports = function(app){
                                           listId, userAuthToken, userAuthTokenSecret){
 
         
-        console.log('******************');                                      
-        console.log('in refactored oAuth signature generator function for list');
-        console.log('the parameters are:');
-        console.log('verb = ' + verb);
-        console.log('url = ' + url);
-        console.log('timestamp = ' + timestamp);
-        console.log('nonceValue = ' + nonceValue);
-        console.log('listId = ' + listId);
-        console.log('userAuthToken = ' + userAuthToken);
-        console.log('userAuthTokenSecret = ' + userAuthTokenSecret);
-        console.log('******************');
-        
-        //build request parameter string
-        //refactor the below
-        // var requestParamString = '';
-        // for (var key in requestParameters) {
-        //     if (requestParameters.hasOwnProperty(key)) {
-        //         console.log(key + " -> " + requestParameters[key]);
-        //         requestParamString = requestParamString + '\'' + key + '\':\'' +  requestParameters[key] + '\'';
-        //     }
-        // }
-        // console.log('requestParamString -> ' + requestParamString);
         var parameters = {
             'list_id':listId,
-            oauth_consumer_key : 'KkKRSmSoRbqmanyNVOt9EcZOl',
+            oauth_consumer_key : twitterConfig.oauth_consumer_key,
             oauth_nonce : nonceValue,
             oauth_signature_method : 'HMAC-SHA1',
             oauth_timestamp : timestamp,
@@ -301,7 +260,7 @@ module.exports = function(app){
             oauth_version : '1.0'
             
         };
-        var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
+        var consumerSecret = twitterConfig.oauth_consumer_secret;
         var tokenSecret = userAuthTokenSecret;
         // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash
         console.log('list endpoint: parameters sent to the oath_signature.generator = ' + JSON.stringify(parameters)); 
@@ -322,32 +281,8 @@ module.exports = function(app){
     function prepareTwitterOauthSignatureForListBySlug(verb, url, timestamp, nonceValue, 
                                           ownerScreenName, slug, userAuthToken, userAuthTokenSecret){
 
-        
-        console.log('******************');                                      
-        console.log('in refactored oAuth signature generator function for list by slug');
-        console.log('the parameters are:');
-        console.log('verb = ' + verb);
-        console.log('url = ' + url);
-        console.log('timestamp = ' + timestamp);
-        console.log('nonceValue = ' + nonceValue);
-        console.log('ownerScreenName = ' + ownerScreenName);
-        console.log('slug = ' + slug);
-        console.log('userAuthToken = ' + userAuthToken);
-        console.log('userAuthTokenSecret = ' + userAuthTokenSecret);
-        console.log('******************');
-        
-        //build request parameter string
-        //refactor the below
-        // var requestParamString = '';
-        // for (var key in requestParameters) {
-        //     if (requestParameters.hasOwnProperty(key)) {
-        //         console.log(key + " -> " + requestParameters[key]);
-        //         requestParamString = requestParamString + '\'' + key + '\':\'' +  requestParameters[key] + '\'';
-        //     }
-        // }
-        // console.log('requestParamString -> ' + requestParamString);
         var parameters = {
-            oauth_consumer_key : 'KkKRSmSoRbqmanyNVOt9EcZOl',
+            oauth_consumer_key : twitterConfig.oauth_consumer_key,
             oauth_nonce : nonceValue,
             oauth_signature_method : 'HMAC-SHA1',
             oauth_timestamp : timestamp,
@@ -356,7 +291,7 @@ module.exports = function(app){
             owner_screen_name : ownerScreenName,
             slug : slug
         };
-        var consumerSecret = 'NmCcHv03EQAGeufzppep2ioQ2kNInKnrBTqfhd7ho7POQFA1wp';
+        var consumerSecret = twitterConfig.oauth_consumer_secret;
         var tokenSecret = userAuthTokenSecret;
         // generates a RFC 3986 encoded, BASE64 encoded HMAC-SHA1 hash
         console.log('list by slug endpoint: parameters sent to the oath_signature.generator = ' + JSON.stringify(parameters)); 
