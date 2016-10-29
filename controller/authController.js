@@ -52,6 +52,14 @@ module.exports = function(app){
                       request1.end();
     });
 
+    function mapLoginResponseToBO(loginResponse){
+        var loginResponseBO = {
+            
+        }
+
+
+    }
+
     app.post('/api/register',function(req,res){
    
             var user = {

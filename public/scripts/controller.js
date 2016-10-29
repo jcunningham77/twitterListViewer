@@ -204,9 +204,8 @@ angular.module("twitterListViewer")
 
 	 	dataService.login(username.value,password.value).then(function(response) {
 	        if (response.success) {
-	            //debugger;
-	            console.log("LoginController.login, response is success");
-	            console.log("LoginController.login, response data = " + JSON.stringify(response.data));
+	        
+	            console.log("LoginController.login, success response data = " + JSON.stringify(response.data));
 
 	            authenticationService.SetCredentials(username, password);
 	            // console.log("LoginController.login - data from response to be stored in auth:");
@@ -218,7 +217,8 @@ angular.module("twitterListViewer")
 	            $location.path('/TwitterAuth');
 	        } else {
 	            console.log("LoginController.login, response is failure, message from Backendless = " + response.message);
-	            // flashService.Error(response.message);
+	            //TODO work on flash service for error feedback
+				// flashService.Error(response.message);
 	            // vm.password="";
 	            // vm.dataLoading = false;
 	        }
@@ -248,16 +248,11 @@ angular.module("twitterListViewer")
 	 			$location.path('/TwitterAuth');
 	 		} else {
 	 			console.log("RegistrationController.login, response is failure, message from Backendless = " + response.message);
-	 			flashService.Error(response.message);
+	 			
+				 //TODO configure flash service
+				 //flashService.Error(response.message);
 	 		}
 	 	});
 
-	 }
-
-
-
-	
-}])
-
-
-;
+	 }	
+}]);
