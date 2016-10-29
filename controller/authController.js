@@ -1,3 +1,11 @@
+/*
+    This controller handles authentication functionality for client requests.
+    This will initially be used by an Angular front end, but may be used by other clients at some point.
+    The current BES is BackEndLess - currently sending back backEndless-specific response data that determines authentication status.
+    For example, we will get a 200 from BackEndLess, but need to inspect the response body to make sure there is a success authentication or registration
+    TODO - handle this login in this layer so clients don't have to do the authentication. 
+*/
+
 var https = require('https');
 var bodyParser = require('body-parser');
 var config = require('../config');
@@ -32,7 +40,6 @@ module.exports = function(app){
                                 body += d;
                             });
                             result.on('end',function(){
-                                console.log('in end clause of backendless login post callback - body = ' + body);
                                 parsed = JSON.parse(body);
                                 console.log('in authController node endpoint for login - end ' + parsed);
                                 res.send(parsed);
@@ -51,14 +58,6 @@ module.exports = function(app){
                       
                       request1.end();
     });
-
-    function mapLoginResponseToBO(loginResponse){
-        var loginResponseBO = {
-            
-        }
-
-
-    }
 
     app.post('/api/register',function(req,res){
    
@@ -85,7 +84,6 @@ module.exports = function(app){
                             result.on('end',function(){
                                 console.log('in end clause of backendless register post callback - body = ' + body);
                                 parsed = JSON.parse(body);
-                                console.log('in authController node endpoint for register - end ' + parsed);
                                 res.send(parsed);
                             });
                             result.on('error',function(){

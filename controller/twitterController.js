@@ -1,3 +1,10 @@
+/*
+    This controller handles twitter specific calls - 
+        currently 2 calls to the Twitter API to get a user's Lists as well as List-specific data.
+    Also there is an endpoint to get a default twitter list for a user, and post a default list for a user.
+    The Default List data is stored in a Mongo DB hosted on mLab.com.
+*/
+
 var https = require('https');
 var oauth_nonce = require('oauth_nonce');
 var oauth_signature = require('oauth-signature');
@@ -11,7 +18,9 @@ module.exports = function(app){
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:true}));
 
-
+    //TODO - currently we persist default list data by Twitter alias
+    // -  investigate adding the user's email address and identify default list data
+    // by that AND the alias - since Twitter alias's can be changed
     app.post('/api/default-list',function(req,res){
         console.log('in the post endpoint for setting default list');
         var defaultList;
@@ -35,7 +44,6 @@ module.exports = function(app){
                     function(err,result){
                         if(err){
                             console.log(err);
-                            // throw err;
                             res.status('500').send({message:'Internal Server Error'});
                         }
                         if (result){
@@ -46,9 +54,7 @@ module.exports = function(app){
                             res.status('404').send();
                         }
                         
-                    });
-                    
-                 
+                    });              
     });
 
     app.get('/api/twitter-lists/:alias',function(req,res){
@@ -85,6 +91,11 @@ module.exports = function(app){
                       request1.end();
     });
 
+    /*
+        This API endpoint was working for some accounts, but not all.
+        So I switched to getting this data by slug and alian (see below)
+    */
+
    app.get('/api/twitter-list/:listId',function(req,res){
 
         var nonceValue = oauth_nonce();
@@ -106,11 +117,9 @@ module.exports = function(app){
                                 body += d;
                             });
                             result.on('end',function(){
-                                // console.log("twitter-list - this is the response from the twitter list api: " + body);
                                 parsed = JSON.parse(body);
-                                console.log(parsed);
                                 var twitterListResponse = mapTwitterApiListToListViewerList(parsed);
-                                // console.log(JSON.stringify(twitterListResponse));
+                                console.log(JSON.stringify(twitterListResponse));
                                 res.send(twitterListResponse);
                             });
                             result.on('error',function(){
@@ -131,7 +140,7 @@ module.exports = function(app){
         var oauthSignatureValue = prepareTwitterOauthSignatureForListBySlug('GET','https://api.twitter.com/1.1/lists/statuses.json',timestamp,nonceValue,req.params.owner_screen_name,req.params.slug,req.headers.userauthtoken,req.headers.userauthtokensecret);
 
 
-        console.log("inside node controller for get Twitter List, input req params = " + req);
+        console.log("inside node controller for get Twitter List by slug, input req params = " + req);
         var listRequest = https.request({method:'GET',
                       headers:{
                           'Authorization': 'OAuth oauth_consumer_key="KkKRSmSoRbqmanyNVOt9EcZOl", oauth_nonce="'+nonceValue+'", oauth_signature="'+oauthSignatureValue+'", oauth_signature_method="HMAC-SHA1", oauth_timestamp="' + timestamp +'", oauth_token="' + req.headers.userauthtoken +'", oauth_version="1.0"' 
