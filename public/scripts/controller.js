@@ -71,7 +71,7 @@ angular.module("twitterListViewer")
 				.then(function(res){
 					console.log("in result callback after API call, default list GET res = " + JSON.stringify(res));
 					if(res){
-						debugger;
+						// debugger;
 						console.log("in success callback after API call, res.data.slug = " + res.data.slug);
 						localStorage.setItem("slug",res.data.slug);
 						$scope.defaultListId = res.data.listId;
@@ -203,8 +203,9 @@ angular.module("twitterListViewer")
 	if (authenticatedWithTwitter&&authenticatedWithListViewer&&slug){
 		
 		console.log('customer is logged in and we have a default list');
-		// $scope.$apply($location.path('/TwitterList?ownerScreenName='+localStorage.twitterAlias+'&slug='+slug));
-		$scope.$apply($location.path('/TwitterList'));
+		//TODO - fix this
+		$scope.$apply($location.path('#/TwitterList').search({"ownerScreenName": localStorage.twitterAlias}).search({"slug":slug}));
+		// $scope.$apply($location.path('/TwitterList'));
 	} else if (authenticatedWithTwitter&&authenticatedWithListViewer){
 		// $scope.$apply($location.path('/TwitterLists'));
 	}
