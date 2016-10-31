@@ -28,7 +28,7 @@ module.exports = function(app){
         console.log('in the post endpoint for setting default list');
         var defaultList;
         DefaultLists.findOneAndUpdate({alias:req.body.data.alias},
-                    {alias:req.body.data.alias,listId:req.body.data.listId},
+                    {alias:req.body.data.alias,listId:req.body.data.listId,slug:req.body.data.slug},
                     {new:true,upsert:true},
                     function(err,result){
                         if(err){
@@ -96,7 +96,7 @@ module.exports = function(app){
 
     /*
         This API endpoint was working for some accounts, but not all.
-        So I switched to getting this data by slug and alian (see below)
+        So I switched to getting this data by slug and alias (see below)
     */
 
    app.get('/api/twitter-list/:listId',function(req,res){

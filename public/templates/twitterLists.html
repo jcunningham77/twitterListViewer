@@ -16,7 +16,7 @@
 							<!--This is the call to get List data by ListId:-->
 							<!--<tr ng-repeat="list in listData.data"><td><a href="#TwitterList?listId={{list.id}}">{{list.name}}</a></td><td><input type="checkbox" ng-checked="list.id===defaultListId" ng-click="setDefaultList(list.id)"></td></tr>-->
 							<!--this is the call to get list data by owner_screen_name and slug-->
-							<tr ng-repeat="list in listData.data"><td><a href="#TwitterList?ownerScreenName={{list.user.screen_name}}&slug={{list.slug}}">{{list.name}}</a></td><td><input type="checkbox" ng-checked="list.id===defaultListId" ng-click="setDefaultList(list.id)"></td></tr>
+							<tr ng-repeat="list in listData.data"><td><a href="#TwitterList?ownerScreenName={{list.user.screen_name}}&slug={{list.slug}}">{{list.name}}</a></td><td><input type="checkbox" ng-checked="list.id===defaultListId" ng-click="setDefaultList(list.id,list.slug)"></td></tr>
 						
 
 					</table>

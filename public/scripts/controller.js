@@ -71,6 +71,9 @@ angular.module("twitterListViewer")
 				.then(function(res){
 					console.log("in result callback after API call, default list GET res = " + JSON.stringify(res));
 					if(res){
+						debugger;
+						console.log("in success callback after API call, res.data.slug = " + res.data.slug);
+						localStorage.setItem("slug",res.data.slug);
 						$scope.defaultListId = res.data.listId;
 					}	
 				},function(err){
@@ -81,15 +84,17 @@ angular.module("twitterListViewer")
 	
 	console.log("after API call to node twitter list endpoint and default-list endpoint");
 
-	$scope.setDefaultList = function(listId){
+	$scope.setDefaultList = function(listId,slug){
 		console.log("call node service to persist " + listId + " as defaul");
 		$http.post('http://localhost:3000/api/default-list/',
 		{
 			data:{
 				alias:$scope.twitterAlias,
-				listId:listId
+				listId:listId,
+				slug:slug
 			}
 		}).then(function(res){
+			localStorage.setItem("slug",res.data.slug);
 			$scope.defaultListId = listId;
 			console.log('in success callback after persisting default id');
 		},function(err){
@@ -140,7 +145,7 @@ angular.module("twitterListViewer")
 					headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
 							'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
 				}).then(function(res){
-					console.log("in success callback after API call");
+					
 					$scope.listData = res;
 					console.log($scope.listData);
 				},function(err){
@@ -150,13 +155,21 @@ angular.module("twitterListViewer")
 				});	
 	}
 }])
-.controller('homeController',['$scope', '$cookieStore', '$location', function($scope, $cookieStore, $location){
+.controller('homeController',['$scope', '$cookieStore', '$location', '$http', function($scope, $cookieStore, $location, $http){
 	
 	var cookieCredentials = $cookieStore.get('globals');
 	// debugger;
 	var authenticatedWithListViewer = false;
 	var authenticatedWithTwitter = false;
 
+	var slug = localStorage.slug;
+
+	console.log('slug = ' + slug);
+
+
+
+
+	// debugger;
 	if (localStorage.twitterAlias&&
 		localStorage.twitterAvatar&&
 		localStorage.twitterUserToken&&
@@ -165,12 +178,35 @@ angular.module("twitterListViewer")
 		}
 
 
+
+
 	if(cookieCredentials){
 		authenticatedWithListViewer = true;
 	}
 
-	if (authenticatedWithTwitter&&authenticatedWithListViewer){
-		$scope.$apply($location.path('/TwitterLists'));
+	// if (authenticatedWithTwitter&authenticatedWithListViewer){
+	// 		//check if they have a default list already set:
+	// 	$http.get('http://localhost:3000/api/default-list/' + localStorage.getItem("twitterAlias"))
+	// 		.then(function(res){
+	// 			console.log("in result callback after API call, default list GET res = " + JSON.stringify(res));
+	// 			if(res){
+	// 				slug = res.data.slug;
+	// 				console.log('after api call to get default list, slug = ' + slug);
+	// 			}	
+	// 		},function(err){
+	// 			console.log("ir err callback after API call for default list GET");
+	// 			console.log(err);
+				
+	// 		});
+	// }		
+	// debugger;
+	if (authenticatedWithTwitter&&authenticatedWithListViewer&&slug){
+		
+		console.log('customer is logged in and we have a default list');
+		// $scope.$apply($location.path('/TwitterList?ownerScreenName='+localStorage.twitterAlias+'&slug='+slug));
+		$scope.$apply($location.path('/TwitterList'));
+	} else if (authenticatedWithTwitter&&authenticatedWithListViewer){
+		// $scope.$apply($location.path('/TwitterLists'));
 	}
 
 	

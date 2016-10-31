@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var defaultListSchema = new Schema({
     alias:String,
-    listId:Number
+    listId:Number,
+    slug:String
 });
 
 
