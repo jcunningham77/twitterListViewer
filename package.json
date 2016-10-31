@@ -2,9 +2,9 @@
   "name": "twitter-list-viewer",
   "version": "0.0.1",
   "description": "A MEAN application to allow Twitter users to quickly access their lists. They will also be able to set default lists.",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
