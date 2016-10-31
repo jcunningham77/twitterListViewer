@@ -3,6 +3,7 @@
  var config = require('./config');
  var app =express();
  var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+ var ip = process.env.OPENSHIFT_NODEJS_PORT || 'localhost';
  var twitterController = require('./controller/twitterController');
  var authController = require('./controller/authController');
 
@@ -13,4 +14,4 @@
  twitterController(app);
  authController(app);
 
- app.listen(port);
+ app.listen(port, ip);
