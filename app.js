@@ -9,9 +9,16 @@
 
 
 
- app.use('/assets/',express.static(__dirname+'/public'));
- mongoose.connect(config.getDBConnectionString());
- twitterController(app);
- authController(app);
+app.use('/assets/',express.static(__dirname+'/public'));
+mongoose.connect(config.getDBConnectionString());
+twitterController(app);
+authController(app);
 
- app.listen(port, ip);
+ 
+
+
+console.log('ip = ' + ip);
+console.log('port = ' + port);
+app.listen(port, ip,function(){
+     console.log(new Date() + ' Server is listening on port 8080');
+});
