@@ -15,7 +15,7 @@ angular.module("twitterListViewer")
 
              console.log("about to invoke Backendless register API call, first = " + user.firstName + " and last = " + user.lastName);
 
-             return $http.post('http://localhost:3000/api/register/',user).then(handleSuccess, handleError);
+             return $http.post('/api/register/',user).then(handleSuccess, handleError);
            
 
     }

@@ -54,7 +54,7 @@ angular.module("twitterListViewer")
 	
 	console.log("about to invoke server side API call, with alias = " + localStorage.getItem("twitterAlias") + " and userAuthToken = " + localStorage.getItem("twitterUserToken"));
 
-    $http.get('http://localhost:3000/api/twitter-lists/' + localStorage.getItem("twitterAlias"),
+    $http.get('/api/twitter-lists/' + localStorage.getItem("twitterAlias"),
 	 			{
 					headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
 							 'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
@@ -67,7 +67,7 @@ angular.module("twitterListViewer")
 					$scope.error_message = err;
 					console.log(err);
 				});
-	$http.get('http://localhost:3000/api/default-list/' + localStorage.getItem("twitterAlias"))
+	$http.get('/api/default-list/' + localStorage.getItem("twitterAlias"))
 				.then(function(res){
 					console.log("in result callback after API call, default list GET res = " + JSON.stringify(res));
 					if(res){
@@ -86,7 +86,7 @@ angular.module("twitterListViewer")
 
 	$scope.setDefaultList = function(listId,slug){
 		console.log("call node service to persist " + listId + " as defaul");
-		$http.post('http://localhost:3000/api/default-list/',
+		$http.post('/api/default-list/',
 		{
 			data:{
 				alias:$scope.twitterAlias,
@@ -120,7 +120,7 @@ angular.module("twitterListViewer")
 
 		// console.log("about to invoke server side API call, with listId = " + localStorage.getItem("twitterAlias") + " and userAuthToken = " + localStorage.getItem("twitterUserToken"));
 
-		$http.get('http://localhost:3000/api/twitter-list/' + listId,
+		$http.get('/api/twitter-list/' + listId,
 					{
 						headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
 								'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
@@ -140,7 +140,7 @@ angular.module("twitterListViewer")
 		var ownerScreenName =  $location.search().ownerScreenName;
 		var slug =  $location.search().slug;
 
-		$http.get('http://localhost:3000/api/twitter-list-by-slug/' + ownerScreenName + '/slug/' + slug,
+		$http.get('/api/twitter-list-by-slug/' + ownerScreenName + '/slug/' + slug,
 				{
 					headers:{'userAuthToken':localStorage.getItem("twitterUserToken"),
 							'userAuthTokenSecret':localStorage.getItem("twitterUserTokenSecret")}
