@@ -203,11 +203,12 @@ angular.module("twitterListViewer")
 	if (authenticatedWithTwitter&&authenticatedWithListViewer&&slug){
 		
 		console.log('customer is logged in and we have a default list');
+		$scope.$apply($location.path('/TwitterLists'));
 		//TODO - fix this
-		$scope.$apply($location.path('#/TwitterList').search({"ownerScreenName": localStorage.twitterAlias}).search({"slug":slug}));
+		// $scope.$apply($location.path('#/TwitterList').search({"ownerScreenName": localStorage.twitterAlias}).search({"slug":slug}));
 		// $scope.$apply($location.path('/TwitterList'));
 	} else if (authenticatedWithTwitter&&authenticatedWithListViewer){
-		// $scope.$apply($location.path('/TwitterLists'));
+		
 	}
 
 	
