@@ -1,5 +1,10 @@
 'use strict';
 angular.module("twitterListViewer")
+.controller('CollapseDemoCtrl', function ($scope) {
+  $scope.isNavCollapsed = true;
+  $scope.isCollapsed = false;
+  $scope.isCollapsedHorizontal = false;
+})
 .controller('twitterController', ['$scope','$location', function($scope, $location) {
 
   	

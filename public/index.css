@@ -9,7 +9,7 @@
 
 body {
 	font-family:'Open Sans', sans-serif;
-  padding-top: 103px;
+  /*padding-top: 103px; this was removed after switching to angular-UI navbar collapse*/
   text-align: center;
   /*position: relative;*/
 }
