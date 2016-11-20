@@ -20,6 +20,24 @@ angular.module("twitterListViewer")
 
     }
 
+    this.resetpassword = function(emailaddress){
+
+        console.log("about to invoke node reset password API call, email = " +emailaddress);
+        return $http.get('/api/resetpassword/'+emailaddress).then(function success(res){
+            var response;
+            console.log("dataservice, success callback from api resetpassword call, res = " + res)
+            response = { success: true};
+            return response;
+
+        },function failure(res){
+            
+            var response;
+            console.log("dataservice, failure callback from api resetpassword call, res = " + res)
+            response = { success: false};
+            return response;
+        });
+    }
+
     /*
     * Handle the sucess message coming back from the Node service that hits Backendless.
     * Note we are doing a check in here for response body data that indicates a failure

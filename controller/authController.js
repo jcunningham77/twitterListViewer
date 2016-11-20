@@ -18,6 +18,41 @@ module.exports = function(app){
 
     var backendlessHeaders = config.getBackendlessConfigValues();
 
+    app.get('/api/resetpassword/:email',function(req,res){
+        console.log("About to request password reset from backendless for email = " + req.params.email);
+        
+        console.log("headers = " + JSON.stringify(backendlessHeaders));
+        var request1 = https.request({method:'GET',
+                      headers : backendlessHeaders,
+                      host:'api.backendless.com',
+                      path:'/v1/users/restorepassword/' + req.params.email
+                      },function(result){
+                          var body= "";
+                            result.on('data', function(d) {
+                                console.log("in data callback of BE reset");
+                                body += d;
+                                
+                            });
+                            result.on('end',function(){
+                                console.log("in end callback of BE reset");
+                                console.log('statusCode:', result.statusCode);
+                                console.log('data:', result.data);
+                                
+                                res.send(result.statusCode);
+                                
+                            });
+                            result.on('error',function(){
+                                if (err){
+                                    console.log("in error callback of BE reset");
+                                    console.log(err);
+                                    throw err;
+                                }
+                            });
+
+                      });
+                      request1.end();
+    });
+
     app.post('/api/login',function(req,res){
    
             console.log("about to invoke Backendless login API call, username = " + req.body.username + " and password = " + req.body.password);

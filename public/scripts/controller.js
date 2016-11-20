@@ -232,6 +232,19 @@ angular.module("twitterListViewer")
     	authenticationService.ClearCredentials();
   	}
 
+	$scope.resetpassword = function(){
+		console.log("about to call data service to reset password, email = " + email.value);
+		
+		dataService.resetpassword(email.value).then(function(response){
+			if (response.success){
+				console.log('reset password link has been set');
+			}	else {
+				console.log('reset password didn\'t go correctly');
+			}
+		});
+
+	}  
+
 	$scope.login = function(){
 	 	
 	 	console.log("about to call the login service,  username = " + username.value + ", password = " + password.value);
