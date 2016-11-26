@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	angular.module('twitterListViewer',['ngRoute','ngCookies','ngSanitize', 'ui.bootstrap'])
+	angular.module('twitterListViewer',['ngRoute','ngCookies','ngSanitize', 'ui.bootstrap','ngAnimate'])
 	.config(function($routeProvider, $locationProvider){
 		$routeProvider
 
