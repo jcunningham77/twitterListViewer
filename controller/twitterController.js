@@ -34,11 +34,15 @@ module.exports = function(app){
                         if(err){
                             console.log(err);
                             throw err;
-                        }else{
-                            defaultList = result;
+                        } if (result) {
+                            console.log('default list id after POST  = ' + result.listId);
+                            res.status('200').send(result);
+                        } else {
+                            console.log('not found');
+                            res.status('404').send();
                         }
                     });
-        res.send(defaultList); 
+        
     });
 
     app.get('/api/default-list/:alias',function(req,res){
@@ -80,7 +84,7 @@ module.exports = function(app){
                             });
                             result.on('end',function(){
                                 parsed = JSON.parse(body);
-                                console.log(parsed);
+                                console.log('list data from twitter = ' + JSON.stringify(parsed));
                                 res.send(parsed);
                             });
                             result.on('error',function(){

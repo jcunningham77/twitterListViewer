@@ -76,7 +76,7 @@ module.exports = function(app){
                             });
                             result.on('end',function(){
                                 parsed = JSON.parse(body);
-                                console.log('in authController node endpoint for login - end ' + parsed);
+                                console.log('in authController node endpoint for login - end ' + JSON.stringify(parsed));
                                 res.send(parsed);
                             });
                             result.on('error',function(){
