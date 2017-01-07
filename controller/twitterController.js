@@ -84,7 +84,8 @@ module.exports = function(app){
                             });
                             result.on('end',function(){
                                 parsed = JSON.parse(body);
-                                console.log('list data from twitter = ' + JSON.stringify(parsed));
+                                // console.log('list data from twitter = ' + JSON.stringify(parsed));
+                                
                                 res.send(parsed);
                             });
                             result.on('error',function(){
