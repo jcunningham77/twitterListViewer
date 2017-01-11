@@ -28,7 +28,7 @@ module.exports = function(app){
         console.log('in the post endpoint for setting default list');
         var defaultList;
         DefaultLists.findOneAndUpdate({alias:req.body.data.alias},
-                    {alias:req.body.data.alias,listId:req.body.data.listId,slug:req.body.data.slug},
+                    {alias:req.body.data.alias,listId:req.body.data.listId,slug:req.body.data.slug,listName:req.body.data.listName},
                     {new:true,upsert:true},
                     function(err,result){
                         if(err){

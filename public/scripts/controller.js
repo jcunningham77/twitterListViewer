@@ -89,14 +89,15 @@ angular.module("twitterListViewer")
 	
 	console.log("after API call to node twitter list endpoint and default-list endpoint");
 
-	$scope.setDefaultList = function(listId,slug){
+	$scope.setDefaultList = function(listId,slug,name){
 		console.log("call node service to persist " + listId + " as defaul");
 		$http.post('/api/default-list/',
 		{
 			data:{
 				alias:$scope.twitterAlias,
 				listId:listId,
-				slug:slug
+				slug:slug,
+				listName:name
 			}
 		}).then(function(res){
 			localStorage.setItem("slug",res.data.slug);
