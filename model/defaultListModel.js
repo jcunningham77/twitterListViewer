@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var defaultListSchema = new Schema({
     alias:String,
     listId:String,
-    slug:String
+    slug:String,
+    listName:String
 });
 
 
