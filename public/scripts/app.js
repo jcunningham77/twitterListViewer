@@ -40,7 +40,13 @@
 		    controller: 'twitterListController',
 		    // data: { active:"home"}
 		    // active=home;
-		  })						  		  
+		  })			
+			.when('/About', {
+		    templateUrl: 'templates/about.html',
+		    controller: 'i18nTextController',
+		    // data: { active:"home"}
+		    // active=home;
+		  })				  		  
 		  .otherwise({ redirectTo: '/Home' });
 		})
 .run(run);

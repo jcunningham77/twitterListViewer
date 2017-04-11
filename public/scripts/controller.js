@@ -5,6 +5,14 @@ angular.module("twitterListViewer")
   $scope.isCollapsed = false;
   $scope.isCollapsedHorizontal = false;
 })
+.controller('topNavController',['$scope','$location',function($scope,$location){
+	$scope.showTopNav = true;
+	debugger;
+	if ($location.$$path.indexOf("/About")>-1){
+		$scope.showTopNav = false;
+	}
+
+}])
 .controller('twitterController', ['$scope','$location', function($scope, $location) {
 
   	
@@ -275,6 +283,27 @@ angular.module("twitterListViewer")
 	 };
 	
 })
+.controller('i18nTextController',['$scope','$http',function($scope,$http){
+	
+
+	console.log("inside i18nTextController");
+
+
+		$http.get('/api/about-text/',
+					{
+						headers:{'jeff':"jeffHeaderValue"}
+					}).then(function(res){
+						console.log("in success callback after API call");
+						$scope.aboutHeader = res;
+						console.log($scope.aboutHeader);
+					},function(err){
+						console.log("in error callback after API call");
+						$scope.error_message = err;
+						console.log(err);
+					});	
+
+
+}])
 .controller('registrationController', ['$scope','$location','authenticationService','dataService', function($scope, $location, authenticationService, dataService){
 	initController();
 

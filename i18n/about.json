@@ -1,0 +1,19 @@
+{
+    "en":{
+            "header":"Thank you for installing the first version of Twitter List Viewer!",
+            "description":"If you categorize your Twitter follows into Lists, and you'd like a default view on app launch to see your favorite list, you can use this app. You can login to your Twitter account using this app, and you will be presented with the Twitter Lists you own. Select the \"default\" checkbox to set your default list, and change it anytime. You can also view your other list timelines. Close the app when you are finished. The next time you open the app, the default view of the app will display your default list! The same functionality using the Twitter app requires navigating from Home to Account to Lists, and then finally selecting your list.",
+            "emphasizedText":"This app gets you to your list data in three less steps and is perfect for the frequent Twitter consumer who uses lists.",
+            "prerequisiteHeader":"Prerequisites for Using Twitter List Viewer",
+            "prereq1":"Have a Twitter Account",
+            "prereq2":"Have Twitter Follows grouped into Lists"
+    },
+    "de":{
+            "header":"Danke für die Installation der ersten Version von Twitter List Viewer!",
+            "description":"Wenn du deinen Twitter kategorisierst, folgt in Listen, und du möchtest eine Standardansicht auf App-Start, um deine Lieblingsliste zu sehen, kannst du diese App nutzen. Du kannst dich bei deinem Twitter-Account mit deiner App anmelden und du Wird mit den Twitter-Listen präsentiert, die Sie besitzen. Wählen Sie das Kontrollkästchen \"Standard\", um Ihre Standardliste einzustellen und jederzeit zu ändern.Sie können auch Ihre anderen Listen-Zeitleisten anzeigen.Schließen Sie die App, wenn Sie fertig sind.Wenn Sie das nächste Mal öffnen Sie die App, die Standardansicht der App zeigt Ihre Standardliste an! Die gleiche Funktionalität, die die Twitter App verwendet, muss von Home zu Account zu Listen navigieren und dann endlich deine Liste auswählen. ",
+            "emphasizedText":"Diese App bringt Sie zu Ihrer Liste Daten in drei weniger Schritte und ist perfekt für die häufige Twitter-Verbraucher, der Listen verwendet.",
+            "prerequisiteHeader":"Voraussetzungen für die Verwendung von Twitter List Viewer",
+            "prereq1":"Haben Sie einen Twitter Account",
+            "prereq2":"Habe Twitter-Nachfolger in Lists gruppiert"        
+    }    
+}
+
