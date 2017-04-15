@@ -14,6 +14,62 @@
             "prerequisiteHeader":"Voraussetzungen für die Verwendung von Twitter List Viewer",
             "prereq1":"Haben Sie einen Twitter Account",
             "prereq2":"Habe Twitter-Nachfolger in Lists gruppiert"        
-    }    
+    },
+    "uk":{
+            "header":"Спасибі за установку першої версії Twitter List Viewer!",
+            "description":"Якщо ви класифікувати ваш Twitter наступним в списках, і ви хотіли б побачити за замовчуванням на запуск програми, щоб побачити свій улюблений список, ви можете користуватися цією програмою, Ви можете увійти в свій обліковий запис Twitter за допомогою цього додатка, і ви. будуть представлені щебетати списки ви володієте. Виберіть \"за замовчуванням \" прапорець, щоб встановити список за замовчуванням, і змінити його в будь-який час. Таким чином, ви можете переглядати інші списку тимчасові рамки. Закрийте програму, коли ви закінчите. в наступний раз, коли ви відкрити програму, стандартний вигляд програми буде відображати список за замовчуванням! Та ж функція із користування послугою Twitter вимагає навігацій від будинку до облікового запису в списки, а потім, нарешті, вибір списку.",
+            "emphasizedText":"Ця програма отримує вас в список ваших даних в три менше кроків, і ідеально підходить для частого Twitter споживача, який використовує списки",
+            "prerequisiteHeader":"Передумови Використання Twitter List Viewer",
+            "prereq1":"Є аккаунт твіттер",
+            "prereq2":"Чи були Twitter наступним чином згруповані в списки"
+    },     
+    "fr":{
+            "header":"Merci d'avoir installé la première version de Twitter List Viewer! ",
+            "description":"Si vous classez votre Twitter suit dans les listes, et que vous souhaitez une vue par défaut au lancement de l'application pour voir votre liste de favoris, vous pouvez utiliser cette application, vous pouvez vous connecter à votre compte Twitter en utilisant cette application, et vous. sera présenté avec le Twitter liste que vous possédez. Sélectionnez la  case default  pour définir votre liste par défaut, et le changer à tout moment. vous pouvez donc voir vos autres calendriers de liste. Fermez l'application lorsque vous avez terminé. la prochaine fois ouvrir l'application, la vue par défaut de l'application affiche votre liste par défaut! les mêmes fonctions sur l'utilisation de l'application Twitter nécessite de naviguer Abritant compte aux listes, puis enfin Sélection de votre liste.",
+            "emphasizedText":"Cette application vous permet de vous à vos données de liste en trois étapes et moins est parfait pour le consommateur fréquent Twitter qui utilise des listes",
+            "prerequisiteHeader":"Conditions préalables à l'aide de Twitter List Viewer",
+            "prereq1":"Vous avez déjà un compte twitter",
+            "prereq2":"Avez-Follows Twitter regroupés dans des listes"
+    },        
+    "es":{
+            "header":"Gracias por la instalación de la primera versión de Twitter Lista de Visor!",
+            "description":"Si categorizar su Twitter sigue en listas, y que le gustaría una vista predeterminada en el lanzamiento de aplicaciones para ver la lista de favoritos, puede utilizar esta aplicación se puede acceder a su cuenta de Twitter usando esta aplicación, y usted. será presentado con la listas de Twitter es el propietario. Seleccione la casilla \"defecto\" para establecer su lista predeterminada, y cambiar en cualquier momento. Por lo tanto, puede ver sus otras líneas de tiempo de la lista. Cierre la aplicación cuando haya terminado. la próxima vez que se abrir la aplicación, la vista predeterminada de la aplicación mostrará su lista predeterminada! las mismas funciones sobre el uso de la aplicación de Twitter requiere navegar desde su casa para tener en cuenta a las listas, y finalmente Selección de su lista. ",
+            "emphasizedText":"Esta aplicación se llega con sus datos de lista en tres menos pasos y es perfecto para el consumo frecuente de Twitter que utiliza listas",
+            "prerequisiteHeader":"Requisitos previos para utilizar Twitter Lista de Visor",
+            "prereq1":"Tener una cuenta de twitter",
+            "prereq2":"Ha Twitter Sigue a agruparse en las listas"
+    },  
+    "hi":{
+            "header":"आप ट्विटर सूची व्यूअर के पहले संस्करण को स्थापित करने के लिए धन्यवाद!",
+            "description":"आप अपने ट्विटर सूचियों में इस प्रकार वर्गीकृत, और आप एप्लिकेशन लॉन्च पर एक डिफ़ॉल्ट दृश्य अपने पसंदीदा सूची देखने के लिए चाहते हैं, तो आप इस एप्लिकेशन का उपयोग अपने ट्विटर खाते के लिए लॉग इन कर सकते हैं, और आप इस एप्लिकेशन का उपयोग कर सकते हैं। साथ ट्विटर सूचीबद्ध करता है आप ही प्रस्तुत किया जाएगा। आपकी डिफ़ॉल्ट सूची सेट करने \"डिफ़ॉल्ट \" चेकबॉक्स का चयन करें, और यह किसी भी समय बदल। इसलिए आप अपने अन्य सूची समयसीमा देख सकते हैं। एप्लिकेशन जब आप समाप्त कर बंद कर दें। अगली बार जब आप एप्लिकेशन को खोलने, एप्लिकेशन का डिफ़ॉल्ट दृश्य ट सूची प्रदर्शित करेगा! Twitter एप्लिकेशन का उपयोग करने पर ही कार्य होम से नेविगेट करने की आवश्यकता है सूचियाँ के खाते में होना है, और फिर अंत में अपनी सूची का चयन करना।  ",
+            "emphasizedText":"। इस एप्लिकेशन को तीन कम चरणों में अपनी सूची के आंकड़ों के आप हो जाता है और बार-बार ट्विटर उपभोक्ता जो सूचियों का उपयोग करता लिए एकदम सही है",
+            "prerequisiteHeader":"ट्विटर सूची व्यूअर का उपयोग करने के पहले की शर्तें",
+            "prereq1":"एक चहचहाना खाता है",
+            "prereq2":"ट्विटर सूचियों में बांटा इस प्रकार है"
+    },    
+    "it":{
+            "header":"Grazie per l'installazione della prima versione di Twitter List Viewer!",
+            "description":"Se classificare il tuo Twitter segue in liste e vuoi una visualizzazione predefinita all'avvio app per visualizzare l'elenco dei preferiti, è possibile utilizzare questa applicazione è possibile accedere al proprio account Twitter utilizzando questa applicazione, e voi. sarà presentato con il Twitter elenca si possiede. Selezionare la casella di controllo \"default\" per impostare la vostra lista predefinita e cambiare in qualsiasi momento. è quindi possibile visualizzare le altre linee temporali della lista. Chiudere l'applicazione quando si è finito. la prossima volta che aprire l'applicazione, la visualizzazione predefinita delle app visualizzerà l'elenco di default! le stesse funzioni su come utilizzare l'applicazione Twitter richiede la navigazione da casa a rendere conto alle liste, e poi finalmente Selezione della lista. ",
+            "emphasizedText":"Questa applicazione ti porta ai dati della lista in tre fasi meno ed è perfetto per la frequente Twitter consumatore che usa liste",
+            "prerequisiteHeader":"Prerequisiti per l'utilizzo di Twitter List Viewer",
+            "prereq1":"Avere un account twitter",
+            "prereq2":"Hai Twitter Segue raggruppati in liste"
+    },   
+    "ja":{
+            "header":"Twitterのリストビューアの最初のバージョンをインストールしていただきありがとうございます。",
+            "description":"あなたはあなたのTwitterを分類した場合は、リストに次の、そしてあなたのお気に入りのリストを表示するには、アプリの起動時にデフォルトのビューが欲しい、あなたはあなたがこのアプリを使ってあなたのTwitterアカウントにログインして、あなたのことができ、このアプリを使用することができます。 Twitterのは、あなたが所有して一覧表示されますが表示されます。あなたのデフォルトのリストを設定して、いつでもそれを変更するには、デフォルト チェックボックスを選択します。あなたは、したがって、あなたの他のリストのタイムラインを表示することができます。設定が完了したら、アプリを閉じます。次回アプリを開く、アプリのデフォルトのビューには、デフォルトのリストが表示されます！同じ機能をTwitterアプリを使用してリストを考慮して、ホームからナビゲートして、最終的にはあなたのリストの選択が必要です。",
+            "emphasizedText":"このアプリは3つの以下の手順であなたのリストデータにあなたを取得し、リストを使用して頻繁にTwitterの消費者に最適です",
+            "prerequisiteHeader":"Twitterのリストビューアを使用するための前提条件",
+            "prereq1":"Twitterのアカウントをお持ちの場合は",
+            "prereq2":"ツイッターをリストにグループ化された以下のがあります"
+    },        
+    "ru":{
+            "header":"Спасибо за установку первой версии Twitter List Viewer!",
+            "description":"Если вы классифицировать ваш Twitter следующим в списках, и вы хотели бы увидеть по умолчанию на запуск приложения, чтобы увидеть свой любимый список, вы можете использовать это приложение, Вы можете войти в свою учетную запись Twitter с помощью этого приложения, и вы. будут представлены щебетать списки вы владеете. Выберите \"по умолчанию \" флажок, чтобы установить список по умолчанию, и изменить его в любое время. Таким образом, вы можете просматривать другие списка временные рамки. Закройте приложение, когда вы закончите. в следующий раз, когда вы открыть приложение, вид по умолчанию приложения будет отображать список по умолчанию! Та же функция по использованию приложения Twitter требует навигаций от дома к учетной записи в списки, а затем, наконец, выбор списка.",
+            "emphasizedText":"Это приложение получает вас в список ваших данных в три меньше шагов, и идеально подходит для частого Twitter потребителя, который использует списки",
+            "prerequisiteHeader":"Предпосылки Использование Twitter List Viewer",
+            "prereq1":"Есть аккаунт твиттер",
+            "prereq2":"Были ли Twitter следующим образом сгруппированы в списки"
+    }          
 }
 
