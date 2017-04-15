@@ -7,7 +7,6 @@ angular.module("twitterListViewer")
 })
 .controller('topNavController',['$scope','$location',function($scope,$location){
 	$scope.showTopNav = true;
-	debugger;
 	if ($location.$$path.indexOf("/About")>-1){
 		$scope.showTopNav = false;
 	}
@@ -294,8 +293,13 @@ angular.module("twitterListViewer")
 						headers:{'jeff':"jeffHeaderValue"}
 					}).then(function(res){
 						console.log("in success callback after API call");
-						$scope.aboutHeader = res;
-						console.log($scope.aboutHeader);
+						$scope.header = res.data.header;
+						$scope.description = res.data.description;
+						$scope.emphasizedText = res.data.emphasizedText;
+						$scope.prereq1 = res.data.prereq1;
+						$scope.prereq2 = res.data.prereq2;
+						$scope.prerequisiteHeader = res.data.prerequisiteHeader;
+						
 					},function(err){
 						console.log("in error callback after API call");
 						$scope.error_message = err;

@@ -42,6 +42,7 @@
 		    // active=home;
 		  })			
 			.when('/About', {
+				
 		    templateUrl: 'templates/about.html',
 		    controller: 'i18nTextController',
 		    // data: { active:"home"}
