@@ -66,7 +66,7 @@
         	console.log("next = " + next);
         	console.log("current = " + current);
             // redirect to login page if not logged in and trying to access a restricted page
-						var restrictedPage = ['/Login', '/Register'].indexOf($location.$$path)===-1;
+						var restrictedPage = ['/Login', '/Register','/About'].indexOf($location.$$path)===-1;
 						console.log('restricted page = ' + restrictedPage);
             // var restrictedPage = $.inArray($location.path(), ['/Login', '/Register']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
