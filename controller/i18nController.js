@@ -15,7 +15,8 @@ module.exports = function(app){
 
         var acceptHeaders = req.get('accept-language');
         
-        var separators = [',', ';'];
+        //seperate by , ; or -
+        var separators = [',', ';','-'];
         // console.log(separators.join('|'));
 
         var requestedLanguages = acceptHeaders.split(new RegExp(separators.join('|'), 'g'));
