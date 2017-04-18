@@ -70,6 +70,40 @@
             "prerequisiteHeader":"Предпосылки Использование Twitter List Viewer",
             "prereq1":"Есть аккаунт твиттер",
             "prereq2":"Были ли Twitter следующим образом сгруппированы в списки"
-    }          
+    },
+    "sv":{
+            "header":"Tack för att installera den första versionen av Twitter List Viewer!",
+            "description":"Om du kategorisera din Twitter följer i listor och du vill ha en standard syn på app lanseringen att se din favoritlista kan du använda denna app kan du logga in på ditt Twitter-konto med hjälp av denna app, och du. kommer att presenteras med Twitter listor som du äger. Välj \"default \" kryssrutan för att ställa in standardlistan och ändra den när som helst. du kan därför se dina andra listtidslinjer. Stäng appen när du är klar. Nästa gång du öppnar appen kommer standard tanke på appen visa din standardlistan! samma funktioner om hur du använder Twitter app kräver navigera hemifrån till svars för listor, och sedan slutligen välja din lista. ",
+            "emphasizedText":"Denna app får dig till din lista data i tre mindre steg och är perfekt för den frekventa Twitter konsument som använder listor",
+            "prerequisiteHeader":"Förutsättningar för att använda Twitter List Viewer",
+            "prereq1":"Ha en twitter-konto",
+            "prereq2":"Har Twitter Följer grupperade i listor"
+    },
+     "zh":{
+            "header":"感谢您安装的Twitter列表查看器的第一个版本！",
+            "description":"如果你分类你的Twitter如下成名单，并且希望在应用程序启动默认的视图来查看您的收藏夹列表，你可以使用这个应用程序可以使用这个应用程序登录到你的Twitter帐户，和你。将提交与Twitter的列出你自己，选择  默认 复选框，设置默认列表，并随时更改，因此您可以查看其他列表的时间表。关闭应用程序时，你就结束了，下一次你打开应用程序，该应用程序的默认视图将显示您的默认列表！上使用Twitter的应用程序相同的功能，需要从首页导航到帐户列表，然后选择最后您的名单。",
+            "emphasizedText":"这个程序可以让你到你的列表数据，三层少的步骤，是完美的谁使用名单频繁Twitter的消费者",
+            "prerequisiteHeader":"对使用Twitter列表查看器的先决条件",
+            "prereq1":"有一个Twitter帐户",
+            "prereq2":"拥有Twitter如下分为名单"
+    },
+     "sq":{
+            "header":"Faleminderit për instalimin versionin e parë të Twitter Lista Viewer!",
+            "description":"Nëse ju kategorizoj Twitter tuaj poshtë në listat, dhe ju do të doja një pamje të parazgjedhur në nisjen app për të parë listën tuaj të preferuar, ju mund të përdorni këtë app ju mund të identifikoheni në llogarinë tuaj Twitter duke përdorur këtë app, dhe ju. do të paraqitet me Twitter listat ju vetë. Zgjidhni \"parazgjedhur \" checkbox për të vendosur listën tuaj të parazgjedhur, dhe për të ndryshuar atë në çdo kohë. ju, pra, mund të shihet tjetër afate por lista e juaj. Mbylle app Kur ju jeni të përfunduar. Herën tjetër ju të hapur app, pamje parazgjedhur i aplikacionit do të shfaq listën tuaj të parazgjedhur? të njëjtat funksione në përdorimin e app Twitter kërkon lundrimit nga shtëpia për llogari të listave, dhe pastaj në fund Përzgjedhja listën tuaj.",
+            "emphasizedText":". Kjo app ju merr në të dhënat tuaja lista në tre hapa më pak dhe është e përkryer për të shpeshtë Twitter konsumator i cili përdor listat",
+            "prerequisiteHeader":"Parakushtet për Duke përdorur Twitter List Viewer",
+            "prereq1":"Keni një llogari Twitte",
+            "prereq2":"A Twitter Ndjek grupohen në listat"
+    },     
+    "el":{
+            "header":"Σας ευχαριστώ για την εγκατάσταση της πρώτης έκδοσης του Twitter Λίστα προβολής!",
+            "description":"Εάν κατηγοριοποιήσετε Twitter σας ακολουθεί σε λίστες, και θέλετε μια προεπιλεγμένη προβολή για την έναρξη της εφαρμογής για να δείτε την αγαπημένη σας λίστα, μπορείτε να χρησιμοποιήσετε αυτό το app Μπορείτε να συνδεθείτε στο λογαριασμό σας στο Twitter χρησιμοποιώντας αυτό το app, και εσείς. θα παρουσιαστεί με το Twitter παραθέτει έχετε στην κατοχή σας. Επιλέξτε το  πλαίσιο ελέγχου προεπιλογή  για να ορίσετε την προεπιλεγμένη λίστα σας, και να το αλλάξετε ανά πάσα στιγμή. μπορείτε λοιπόν να δείτε άλλα χρονοδιαγράμματα λίστα σας. Κλείστε την εφαρμογή όταν τελειώσετε. την επόμενη φορά που θα ανοίξτε την εφαρμογή, η προεπιλεγμένη προβολή της εφαρμογής θα εμφανιστεί προεπιλεγμένη λίστα σας! Οι ίδιες λειτουργίες με τη χρήση του Twitter app απαιτεί την πλοήγηση από το σπίτι να λογοδοτήσει σε λίστες, και στη συνέχεια, επιλέγοντας τελικά λίστα σας.",
+            "emphasizedText":"Η εφαρμογή αυτή σας παίρνει στα δεδομένα λίστα σας σε τρία λιγότερα βήματα και είναι ιδανικό για το συχνό Twitter καταναλωτή που χρησιμοποιεί λίστες",
+            "prerequisiteHeader":"Προϋποθέσεις για τη χρήση του Twitter Λίστα Viewer",
+            "prereq1":"Έχετε ένα λογαριασμό twitter",
+            "prereq2":"Έχετε Twitter εξής ομαδοποιούνται σε λίστες"
+    }    
+
+
 }
 
